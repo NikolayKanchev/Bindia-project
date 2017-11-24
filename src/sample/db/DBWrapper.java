@@ -63,4 +63,51 @@ public class DBWrapper
             e.printStackTrace();
         }
     }
+
+    public static void addNewShop(String name, String manager, String address)
+    {
+        String sql = "INSERT INTO `bindia`.`shops` (`" +
+                     "id`, `name`, `manager`, `address`)" +
+                     "VALUES (NULL, ?, ?, ?)";
+
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, name);
+            ps.setString(2, manager);
+            ps.setString(3, address);
+
+            ps.execute();
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveShopChanges(Shop shop)
+    {
+        String sql = "UPDATE `bindia`.`shops` SET " +
+                "`name` = ?, " +
+                "`manager` = ?, "+
+                "`address` = ? WHERE `shops`.`id` = ?";
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, shop.getName());
+            ps.setString(2, shop.getManager());
+            ps.setString(3, shop.getAddress());
+            ps.setInt(4, shop.getId());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

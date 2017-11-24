@@ -12,18 +12,17 @@
       <TableView fx:id="table" layoutX="77.0" layoutY="108.0" prefHeight="596.0" prefWidth="873.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="93.0" text="ID" />
-            <TableColumn fx:id="nameColumn" prefWidth="164.0" text="NAME" />
-            <TableColumn fx:id="managerColumn" prefWidth="323.0" text="MANAGER" />
-            <TableColumn fx:id="addressColumn" prefWidth="291.0" text="ADDRESS" />
+            <TableColumn fx:id="nameColumn" onEditCommit="#saveNameChanges" prefWidth="164.0" text="NAME" />
+            <TableColumn fx:id="managerColumn" onEditCommit="#saveManagerChanges" prefWidth="323.0" text="MANAGER" />
+            <TableColumn fx:id="addressColumn" onEditCommit="#saveAddressChanges" prefWidth="291.0" text="ADDRESS" />
          </columns>
       </TableView>
       <Label fx:id="subLabel" layoutX="404.0" layoutY="30.0" text="Manage Shops" />
-      <Button fx:id="saveBtn" layoutX="852.0" layoutY="710.0" mnemonicParsing="false" onAction="#saveShop" prefHeight="47.0" prefWidth="98.0" text="Save" />
       <Label fx:id="redLabel" layoutX="447.0" layoutY="77.0" prefHeight="31.0" prefWidth="240.0" text="Choose a Shop!!!" visible="false" />
-      <Button fx:id="deleteBtn" layoutX="77.0" layoutY="710.0" mnemonicParsing="false" onAction="#deleteShop" prefHeight="47.0" prefWidth="98.0" text="Delete" />
-      <TextField fx:id="nameField" layoutX="202.0" layoutY="704.0" />
-      <TextField fx:id="managerField" layoutX="389.0" layoutY="704.0" />
-      <TextField fx:id="addressField" layoutX="576.0" layoutY="704.0" />
-      <Button fx:id="addBtn" layoutX="763.0" layoutY="704.0" mnemonicParsing="false" onAction="#addNewShop" prefHeight="31.0" prefWidth="42.0" text="+" />
+      <Button fx:id="deleteBtn" layoutX="78.0" layoutY="704.0" mnemonicParsing="false" onAction="#deleteShop" prefHeight="31.0" prefWidth="74.0" text="Delete" />
+      <TextField fx:id="nameField" layoutX="215.0" layoutY="704.0" prefHeight="31.0" prefWidth="203.0" />
+      <TextField fx:id="managerField" layoutX="418.0" layoutY="704.0" prefHeight="31.0" prefWidth="255.0" />
+      <TextField fx:id="addressField" layoutX="673.0" layoutY="704.0" prefHeight="31.0" prefWidth="211.0" />
+      <Button fx:id="addBtn" layoutX="885.0" layoutY="704.0" mnemonicParsing="false" onAction="#addNewShop" prefHeight="31.0" prefWidth="65.0" text="+" />
    </children>
 </AnchorPane>
