@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StatisticsController">
+   <children>
+      <Label fx:id="subLabel" layoutX="403.0" layoutY="38.0" text="Statistics" />
+      <Label fx:id="redLabel" layoutX="446.0" layoutY="108.0" prefHeight="31.0" prefWidth="329.0" text="Choose a shop !!!" visible="false" />
+      <BarChart fx:id="chart" layoutX="61.0" layoutY="113.0" prefHeight="588.0" prefWidth="875.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>
