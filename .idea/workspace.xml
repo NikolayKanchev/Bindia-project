@@ -2,7 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8615d53-b7e2-4f2e-af0f-4e82e976afa0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/view/shopsScreen.fxml" afterPath="$PROJECT_DIR$/src/sample/view/shopsScreen.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/model/Order.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Bindia-project/sample/OrdersController.class" afterPath="$PROJECT_DIR$/out/production/Bindia-project/sample/OrdersController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Bindia-project/sample/SalesController.class" afterPath="$PROJECT_DIR$/out/production/Bindia-project/sample/SalesController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Bindia-project/sample/model/Shop.class" afterPath="$PROJECT_DIR$/out/production/Bindia-project/sample/model/Shop.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Bindia-project/sample/view/ordersScreen.fxml" afterPath="$PROJECT_DIR$/out/production/Bindia-project/sample/view/ordersScreen.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Bindia-project/sample/view/salesScreen.fxml" afterPath="$PROJECT_DIR$/out/production/Bindia-project/sample/view/salesScreen.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/OrdersController.java" afterPath="$PROJECT_DIR$/src/sample/OrdersController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/SalesController.java" afterPath="$PROJECT_DIR$/src/sample/SalesController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/db/DBWrapper.java" afterPath="$PROJECT_DIR$/src/sample/db/DBWrapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/model/Shop.java" afterPath="$PROJECT_DIR$/src/sample/model/Shop.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/view/ordersScreen.fxml" afterPath="$PROJECT_DIR$/src/sample/view/ordersScreen.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/view/salesScreen.fxml" afterPath="$PROJECT_DIR$/src/sample/view/salesScreen.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,21 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+      <file leaf-file-name="OrdersController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sample/OrdersController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShopsController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/sample/ShopsController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="610">
+              <caret line="105" column="19" lean-forward="false" selection-start-line="105" selection-start-column="19" selection-end-line="105" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -36,34 +38,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shopsScreen.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/view/shopsScreen.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
+      <file leaf-file-name="ShopsController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/ShopsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="16" column="69" lean-forward="false" selection-start-line="16" selection-start-column="69" selection-end-line="16" selection-end-column="69" />
-              <folding />
+            <state relative-caret-position="525">
+              <caret line="59" column="81" lean-forward="true" selection-start-line="56" selection-start-column="7" selection-end-line="59" selection-end-column="81" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBWrapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/db/DBWrapper.java">
+      <file leaf-file-name="SalesController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/SalesController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="90" column="28" lean-forward="false" selection-start-line="90" selection-start-column="28" selection-end-line="90" selection-end-column="28" />
+            <state relative-caret-position="274">
+              <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1511564625140" expanded="true" signature="431:461" ph="SELECT * FRO... shops" />
-                <marker date="1511564625140" expanded="true" signature="1178:1207" ph="DELETE FROM " />
-                <marker date="1511564625140" expanded="true" signature="1581:1670" ph="INSERT INTO `bindia`.`shops`... " />
-                <marker date="1511564625140" expanded="true" signature="1581:1671" ph="INSERT INTO `bindia`.`shops`... " />
-                <marker date="1511564625140" expanded="true" signature="1581:1712" ph="INSERT INTO `bindia`.`shops`... " />
-                <marker date="1511564625140" expanded="true" signature="1581:1720" ph="INSERT INTO `bindia`.`shops`... " />
-                <marker date="1511564625140" expanded="true" signature="1698:1712" ph="VALUES (NULL... " />
-                <marker date="1511564625140" expanded="true" signature="2145:2298" ph="UPDATE `bind... " />
               </folding>
             </state>
           </provider>
@@ -72,35 +65,78 @@
       <file leaf-file-name="Shop.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/model/Shop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-57">
-              <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+            <state relative-caret-position="384">
+              <caret line="60" column="27" lean-forward="false" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
               <folding>
+                <element signature="e#366#367#0" expanded="true" />
                 <element signature="e#391#392#0" expanded="true" />
-                <element signature="e#428#429#0" expanded="true" />
-                <element signature="e#456#457#0" expanded="true" />
-                <element signature="e#491#492#0" expanded="true" />
-                <element signature="e#518#519#0" expanded="true" />
-                <element signature="e#562#563#0" expanded="true" />
-                <element signature="e#594#595#0" expanded="true" />
-                <element signature="e#632#633#0" expanded="true" />
-                <element signature="e#662#663#0" expanded="true" />
-                <element signature="e#712#713#0" expanded="true" />
-                <element signature="e#750#751#0" expanded="true" />
-                <element signature="e#788#789#0" expanded="true" />
-                <element signature="e#818#819#0" expanded="true" />
-                <element signature="e#868#869#0" expanded="true" />
-                <element signature="e#906#907#0" expanded="true" />
+                <element signature="e#956#957#0" expanded="true" />
+                <element signature="e#1005#1006#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/MainController.java">
+      <file leaf-file-name="ordersScreen.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/view/ordersScreen.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-462">
-              <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            <state relative-caret-position="546">
+              <caret line="26" column="103" lean-forward="false" selection-start-line="26" selection-start-column="103" selection-end-line="26" selection-end-column="103" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DBWrapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/db/DBWrapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="526">
+              <caret line="181" column="36" lean-forward="true" selection-start-line="181" selection-start-column="36" selection-end-line="181" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1511571276738" expanded="true" signature="458:488" ph="SELECT * FRO... shops" />
+                <marker date="1511571276738" expanded="true" signature="1205:1234" ph="DELETE FROM " />
+                <marker date="1511571276738" expanded="true" signature="1608:1697" ph="INSERT INTO `bindia`.`shops`... " />
+                <marker date="1511571276738" expanded="true" signature="1608:1698" ph="INSERT INTO `bindia`.`shops`... " />
+                <marker date="1511571276738" expanded="true" signature="1608:1739" ph="INSERT INTO `bindia`.`shops`... " />
+                <marker date="1511571276738" expanded="true" signature="1608:1747" ph="INSERT INTO `bindia`.`shops`... " />
+                <marker date="1511571276738" expanded="true" signature="1725:1739" ph="VALUES (NULL... " />
+                <marker date="1511571276738" expanded="true" signature="2172:2325" ph="UPDATE `bind... " />
+                <marker date="1511571276738" expanded="true" signature="2894:2945" ph="SELECT * FRO... orders" />
+                <marker date="1511571276738" expanded="true" signature="3739:3874" ph="INSERT INTO `bindia`.`orders`... " />
+                <marker date="1511571276738" expanded="true" signature="4325:4354" ph="DELETE FROM " />
+                <marker date="1511571276738" expanded="true" signature="4325:4355" ph="DELETE FROM " />
+                <marker date="1511571276738" expanded="true" signature="4325:4356" ph="DELETE FROM " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Order.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/model/Order.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+              <folding>
+                <element signature="e#403#404#0" expanded="true" />
+                <element signature="e#440#441#0" expanded="true" />
+                <element signature="e#468#469#0" expanded="true" />
+                <element signature="e#509#510#0" expanded="true" />
+                <element signature="e#542#543#0" expanded="true" />
+                <element signature="e#598#599#0" expanded="true" />
+                <element signature="e#642#643#0" expanded="true" />
+                <element signature="e#679#680#0" expanded="true" />
+                <element signature="e#708#709#0" expanded="true" />
+                <element signature="e#756#757#0" expanded="true" />
+                <element signature="e#792#793#0" expanded="true" />
+                <element signature="e#826#827#0" expanded="true" />
+                <element signature="e#855#856#0" expanded="true" />
+                <element signature="e#900#901#0" expanded="true" />
+                <element signature="e#936#937#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -126,9 +162,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/sample/Shop.java" />
-        <option value="$PROJECT_DIR$/src/sample/model/Shop.java" />
-        <option value="$PROJECT_DIR$/src/sample/db/DBWrapper.java" />
         <option value="$PROJECT_DIR$/src/sample/ShopsController.java" />
+        <option value="$PROJECT_DIR$/src/sample/model/Shop.java" />
+        <option value="$PROJECT_DIR$/src/sample/SalesController.java" />
+        <option value="$PROJECT_DIR$/src/sample/Order.java" />
+        <option value="$PROJECT_DIR$/src/sample/model/Order.java" />
+        <option value="$PROJECT_DIR$/src/sample/db/DBWrapper.java" />
+        <option value="$PROJECT_DIR$/src/sample/OrdersController.java" />
       </list>
     </option>
   </component>
@@ -139,9 +179,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="width" value="1102" />
-    <option name="height" value="1048" />
+    <option name="x" value="-8" />
+    <option name="width" value="1932" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -350,12 +390,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1511528489085</updated>
-      <workItem from="1511528492098" duration="10952000" />
+      <workItem from="1511528492098" duration="17671000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10952000" />
+    <option name="totallyTimeSpent" value="17671000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -402,64 +442,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/MainController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-462">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/model/Shop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-57">
-          <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding>
-            <element signature="e#391#392#0" expanded="true" />
-            <element signature="e#428#429#0" expanded="true" />
-            <element signature="e#456#457#0" expanded="true" />
-            <element signature="e#491#492#0" expanded="true" />
-            <element signature="e#518#519#0" expanded="true" />
-            <element signature="e#562#563#0" expanded="true" />
-            <element signature="e#594#595#0" expanded="true" />
-            <element signature="e#632#633#0" expanded="true" />
-            <element signature="e#662#663#0" expanded="true" />
-            <element signature="e#712#713#0" expanded="true" />
-            <element signature="e#750#751#0" expanded="true" />
-            <element signature="e#788#789#0" expanded="true" />
-            <element signature="e#818#819#0" expanded="true" />
-            <element signature="e#868#869#0" expanded="true" />
-            <element signature="e#906#907#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/db/DBWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="90" column="28" lean-forward="false" selection-start-line="90" selection-start-column="28" selection-end-line="90" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1511564625140" expanded="true" signature="431:461" ph="SELECT * FRO... shops" />
-            <marker date="1511564625140" expanded="true" signature="1178:1207" ph="DELETE FROM " />
-            <marker date="1511564625140" expanded="true" signature="1581:1670" ph="INSERT INTO `bindia`.`shops`... " />
-            <marker date="1511564625140" expanded="true" signature="1581:1671" ph="INSERT INTO `bindia`.`shops`... " />
-            <marker date="1511564625140" expanded="true" signature="1581:1712" ph="INSERT INTO `bindia`.`shops`... " />
-            <marker date="1511564625140" expanded="true" signature="1581:1720" ph="INSERT INTO `bindia`.`shops`... " />
-            <marker date="1511564625140" expanded="true" signature="1698:1712" ph="VALUES (NULL... " />
-            <marker date="1511564625140" expanded="true" signature="2145:2298" ph="UPDATE `bind... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/view/shopsScreen.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
@@ -471,10 +453,117 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-209">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/model/Shop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="60" column="27" lean-forward="false" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+          <folding>
+            <element signature="e#366#367#0" expanded="true" />
+            <element signature="e#391#392#0" expanded="true" />
+            <element signature="e#956#957#0" expanded="true" />
+            <element signature="e#1005#1006#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/model/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding>
+            <element signature="e#403#404#0" expanded="true" />
+            <element signature="e#440#441#0" expanded="true" />
+            <element signature="e#468#469#0" expanded="true" />
+            <element signature="e#509#510#0" expanded="true" />
+            <element signature="e#542#543#0" expanded="true" />
+            <element signature="e#598#599#0" expanded="true" />
+            <element signature="e#642#643#0" expanded="true" />
+            <element signature="e#679#680#0" expanded="true" />
+            <element signature="e#708#709#0" expanded="true" />
+            <element signature="e#756#757#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#826#827#0" expanded="true" />
+            <element signature="e#855#856#0" expanded="true" />
+            <element signature="e#900#901#0" expanded="true" />
+            <element signature="e#936#937#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/SalesController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/ShopsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="525">
+          <caret line="59" column="81" lean-forward="true" selection-start-line="56" selection-start-column="7" selection-end-line="59" selection-end-column="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/db/DBWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="181" column="36" lean-forward="true" selection-start-line="181" selection-start-column="36" selection-end-line="181" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1511571276738" expanded="true" signature="458:488" ph="SELECT * FRO... shops" />
+            <marker date="1511571276738" expanded="true" signature="1205:1234" ph="DELETE FROM " />
+            <marker date="1511571276738" expanded="true" signature="1608:1697" ph="INSERT INTO `bindia`.`shops`... " />
+            <marker date="1511571276738" expanded="true" signature="1608:1698" ph="INSERT INTO `bindia`.`shops`... " />
+            <marker date="1511571276738" expanded="true" signature="1608:1739" ph="INSERT INTO `bindia`.`shops`... " />
+            <marker date="1511571276738" expanded="true" signature="1608:1747" ph="INSERT INTO `bindia`.`shops`... " />
+            <marker date="1511571276738" expanded="true" signature="1725:1739" ph="VALUES (NULL... " />
+            <marker date="1511571276738" expanded="true" signature="2172:2325" ph="UPDATE `bind... " />
+            <marker date="1511571276738" expanded="true" signature="2894:2945" ph="SELECT * FRO... orders" />
+            <marker date="1511571276738" expanded="true" signature="3739:3874" ph="INSERT INTO `bindia`.`orders`... " />
+            <marker date="1511571276738" expanded="true" signature="4325:4354" ph="DELETE FROM " />
+            <marker date="1511571276738" expanded="true" signature="4325:4355" ph="DELETE FROM " />
+            <marker date="1511571276738" expanded="true" signature="4325:4356" ph="DELETE FROM " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/view/ordersScreen.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="26" column="103" lean-forward="false" selection-start-line="26" selection-start-column="103" selection-end-line="26" selection-end-column="103" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/OrdersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="105" column="19" lean-forward="false" selection-start-line="105" selection-start-column="19" selection-end-line="105" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

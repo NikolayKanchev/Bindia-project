@@ -1,5 +1,6 @@
 package sample.db;
 
+import sample.model.Order;
 import sample.model.Shop;
 
 import java.sql.Connection;
@@ -104,6 +105,85 @@ public class DBWrapper
             ps.setInt(4, shop.getId());
 
             ps.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Order> getAllOrdersByShopID(int id)
+    {
+        ArrayList<Order> orders = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `bindia`.`orders` WHERE `shop_id` = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                orders.add(
+                        new Order(
+                                rs.getInt("id"),
+                                rs.getString("ingredient"),
+                                rs.getDouble("amount"),
+                                rs.getInt("shop_id")
+                        )
+                );
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return orders;
+    }
+
+    public static void saveOrder(String ingredient, String amount, int selectedShopId)
+    {
+        String sql = "INSERT INTO `bindia`.`orders` (`" +
+                "id`, `ingredient`, `amount`, `shop_id`)" +
+                "VALUES (NULL, ?, ?, ?)";
+
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, ingredient);
+            ps.setDouble(2, Double.parseDouble(amount));
+            ps.setInt(3, selectedShopId);
+
+            ps.execute();
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteOrderById(int id)
+    {
+        String sql = "DELETE FROM orders WHERE id = ?";
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+
+            statement.close();
 
         } catch (SQLException e)
         {

@@ -5,20 +5,25 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.OrdersController">
    <children>
-      <ChoiceBox fx:id="shopCheckBox" layoutX="77.0" layoutY="108.0" prefHeight="30.0" prefWidth="218.0" />
+      <ChoiceBox fx:id="shopCheckBox" layoutX="77.0" layoutY="120.0" prefHeight="30.0" prefWidth="218.0" />
       <TableView fx:id="table" layoutX="77.0" layoutY="150.0" prefHeight="551.0" prefWidth="873.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="93.0" text="ID" />
-            <TableColumn fx:id="ingredientsCulumn" prefWidth="643.0" text="INGREDIENTS" />
+            <TableColumn fx:id="ingredientColumn" prefWidth="643.0" text="INGREDIENT" />
             <TableColumn fx:id="amountColumn" prefWidth="136.0" text="AMOUNT" />
          </columns>
       </TableView>
       <Label fx:id="subLabel" layoutX="403.0" layoutY="38.0" text="Make an order" />
-      <Button fx:id="submitBtn" layoutX="852.0" layoutY="710.0" mnemonicParsing="false" onAction="#createOrder" prefHeight="47.0" prefWidth="98.0" text="Submit" />
+      <Button fx:id="addBtn" layoutX="906.0" layoutY="701.0" mnemonicParsing="false" onAction="#createOrder" prefHeight="31.0" prefWidth="44.0" text="+" />
       <Label fx:id="redLabel" layoutX="446.0" layoutY="108.0" prefHeight="31.0" prefWidth="329.0" text="Choose a shop !!!" visible="false" />
+      <Label layoutX="77.0" layoutY="97.0" text="Choose a shop:" />
+      <TextField fx:id="ingredientField" layoutX="164.0" layoutY="701.0" prefHeight="31.0" prefWidth="604.0" promptText="Ingredient" />
+      <TextField fx:id="amountField" layoutX="768.0" layoutY="701.0" prefHeight="31.0" prefWidth="137.0" promptText="Amount" />
+      <Button fx:id="deleteBtn" layoutX="77.0" layoutY="701.0" mnemonicParsing="false" onAction="#deleteOrder" prefHeight="31.0" prefWidth="69.0" text="Delete" />
    </children>
 </AnchorPane>

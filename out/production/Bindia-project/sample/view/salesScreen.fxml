@@ -20,5 +20,6 @@
       <Label fx:id="subLabel" layoutX="297.0" layoutY="39.0" text="Enter Sales for the Week" />
       <Button fx:id="submitBtn" layoutX="852.0" layoutY="710.0" mnemonicParsing="false" onAction="#saveSales" prefHeight="47.0" prefWidth="98.0" text="Submit" />
       <Label fx:id="redLabel" layoutX="446.0" layoutY="108.0" prefHeight="31.0" prefWidth="329.0" text="Choose a shop !!!" visible="false" />
+      <Label layoutX="77.0" layoutY="86.0" text="Choose a shop:" />
    </children>
 </AnchorPane>

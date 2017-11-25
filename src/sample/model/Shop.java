@@ -54,4 +54,10 @@ public class Shop
     {
         this.address = address;
     }
+
+    @Override
+    public String toString()
+    {
+        return this.id + "\t" + this.name;
+    }
 }
