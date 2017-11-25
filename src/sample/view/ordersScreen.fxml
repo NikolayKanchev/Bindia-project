@@ -14,8 +14,8 @@
       <TableView fx:id="table" layoutX="77.0" layoutY="150.0" prefHeight="551.0" prefWidth="873.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="93.0" text="ID" />
-            <TableColumn fx:id="ingredientColumn" prefWidth="643.0" text="INGREDIENT" />
-            <TableColumn fx:id="amountColumn" prefWidth="136.0" text="AMOUNT" />
+            <TableColumn fx:id="ingredientColumn" onEditCommit="#saveIngChanges" prefWidth="643.0" text="INGREDIENT" />
+            <TableColumn fx:id="amountColumn" onEditCommit="#saveAmountChanges" prefWidth="136.0" text="AMOUNT" />
          </columns>
       </TableView>
       <Label fx:id="subLabel" layoutX="403.0" layoutY="38.0" text="Make an order" />

@@ -190,4 +190,26 @@ public class DBWrapper
             e.printStackTrace();
         }
     }
+
+    public static void saveOrderChanges(Order order)
+    {
+        String sql = "UPDATE `bindia`.`orders` SET " +
+                "`ingredient` = ?, " +
+                "`amount` = ? "+
+                "WHERE `id` = ?";
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, order.getIngredient());
+            ps.setDouble(2, order.getAmount());
+            ps.setInt(3, order.getId());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

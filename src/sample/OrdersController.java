@@ -6,18 +6,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.DoubleStringConverter;
 import sample.db.DBWrapper;
 import sample.model.Order;
 import sample.model.Shop;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -55,6 +52,11 @@ public class OrdersController implements Initializable
         selectedShopId = shops.get(0).getId();
 
         loadOrdersForSelectedShop();
+
+        ingredientColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        amountColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+
+        table.setEditable(true);
 
         shopCheckBox.valueProperty().addListener(new ChangeListener()
         {
@@ -125,5 +127,23 @@ public class OrdersController implements Initializable
         DBWrapper.deleteOrderById(selectedOrder.getId());
 
         loadOrdersForSelectedShop();
+    }
+
+    public void saveIngChanges(TableColumn.CellEditEvent<Order, String> orderStringCellEditEvent)
+    {
+        Order order = table.getSelectionModel().getSelectedItem();
+
+        order.setIngredient(orderStringCellEditEvent.getNewValue());
+
+        DBWrapper.saveOrderChanges(order);
+    }
+
+    public void saveAmountChanges(TableColumn.CellEditEvent<Order, Double> orderDoubleCellEditEvent)
+    {
+        Order order = table.getSelectionModel().getSelectedItem();
+
+        order.setAmount(orderDoubleCellEditEvent.getNewValue());
+
+        DBWrapper.saveOrderChanges(order);
     }
 }
