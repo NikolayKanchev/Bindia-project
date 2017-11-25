@@ -1,7 +1,6 @@
 package sample.db;
 
-import sample.model.Order;
-import sample.model.Shop;
+import sample.model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +12,7 @@ public class DBWrapper
 {
 
     private static Connection conn = DBCon.getConn();
+    private static Ingredient allIngredients;
 
     public static ArrayList<Shop> getAllShops()
     {
@@ -211,5 +211,140 @@ public class DBWrapper
         {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<Ingredient> getAllIngredients()
+    {
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `bindia`.`ingredients`";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                ingredients.add(
+                        new Ingredient(
+                                rs.getInt("id"),
+                                rs.getString("name"),
+                                rs.getDouble("quantity"),
+                                rs.getString("measure")
+                        )
+                );
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return ingredients;
+    }
+
+    public static ArrayList<Recipe> getAllRecipes()
+    {
+        ArrayList<Recipe> recipes = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `bindia`.`recipes`";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                recipes.add(
+                        new Recipe(
+                                rs.getInt("id"),
+                                rs.getString("name")
+                        )
+                );
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return recipes;
+    }
+
+    public static ArrayList<RecipeIngredient> getRecipeIngredients(int recipeId)
+    {
+        ArrayList<RecipeIngredient> ingredients = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `bindia`.`recipe_ingredients` WHERE `recipes_id` = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, recipeId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                RecipeIngredient recipeIngredient = new RecipeIngredient(
+                        rs.getInt("id"),
+                        rs.getInt("recipes_id"),
+                        rs.getDouble("amount"));
+
+                Ingredient ingredient = getIngredientById(rs.getInt("ingredients_id"));
+
+                recipeIngredient.setIngredient(ingredient);
+
+                recipeIngredient.setIngName(ingredient.getName());
+
+                ingredients.add(recipeIngredient);
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return ingredients;
+    }
+
+    private static Ingredient getIngredientById(int ingredients_id)
+    {
+        Ingredient ingredient = null;
+
+        try
+        {
+            String sql = "SELECT * FROM `bindia`.`ingredients` WHERE id = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, ingredients_id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+               ingredient = new Ingredient(
+                       rs.getInt("id"),
+                       rs.getString("name"),
+                       rs.getDouble("quantity"),
+                       rs.getString("measure"));
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return ingredient;
     }
 }
