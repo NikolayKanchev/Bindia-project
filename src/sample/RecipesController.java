@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
+import javafx.util.converter.DoubleStringConverter;
 import sample.db.DBWrapper;
 import sample.model.Ingredient;
 import sample.model.Recipe;
@@ -51,52 +53,42 @@ public class RecipesController implements Initializable
     private TableColumn<Recipe, String> nameRecipesColumn;
 
     @FXML
-    private TextField dishNameField;
+    private TextField recipeNameField, newAmountField;
 
     @FXML
-    private Label redLabel, recipeLabel;
-
-    @FXML
-    private Button saveBtn, createBtn;
+    private Label redLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        createBtn.setVisible(false);
         loadIngredients();
         loadRecipes();
-    }
 
-    public void saveRecipe(ActionEvent actionEvent)
-    {
+        recipeIngTable.setEditable(true);
+        recipesTable.setEditable(true);
 
+        nameRecipesColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        amountRecipeIngColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
     }
 
     public void deleteRecipe(ActionEvent actionEvent)
     {
+        Recipe recipe = recipesTable.getSelectionModel().getSelectedItem();
 
-    }
-
-    public void editRecipe(ActionEvent actionEvent)
-    {
-        Recipe selectedRecipe = recipesTable.getSelectionModel().getSelectedItem();
-
-        if(selectedRecipe == null)
+        if(recipe == null)
         {
-            redLabel.setText("Select Recipe first !!!");
-
+            redLabel.setText("Choose recipe first !!!");
             redLabel.setVisible(true);
-
             return;
         }
 
-        recipeLabel.setText("Edit Recipe");
-        saveBtn.setText("Save Changes");
+        redLabel.setVisible(false);
 
-        loadRecipeIngredients(selectedRecipe.getId());
+        DBWrapper.deleteRecipe(recipe.getId());
 
-        dishNameField.setText(selectedRecipe.getName());
-        createBtn.setVisible(true);
+        loadRecipes();
+
+        recipeIngTable.setItems(null);
     }
 
     private void loadIngredients()
@@ -140,11 +132,13 @@ public class RecipesController implements Initializable
 
     public void createRecipe(ActionEvent actionEvent)
     {
-        dishNameField.setText("");
-        createBtn.setVisible(false);
-        recipeLabel.setText("Create Recipe");
-        saveBtn.setText("Save");
         recipeIngTable.setItems(null);
+
+        DBWrapper.createRecipe(recipeNameField.getText());
+
+        loadRecipes();
+
+        recipeNameField.setText("");
     }
 
     public void addIngredient(MouseEvent mouseEvent)
@@ -157,9 +151,28 @@ public class RecipesController implements Initializable
 
                 if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2)
                 {
+                    Recipe selectedRecipe = recipesTable.getSelectionModel().getSelectedItem();
+
+                    if(selectedRecipe == null)
+                    {
+                        redLabel.setText("Select a Recipe First !!!");
+                        redLabel.setVisible(true);
+
+                        return;
+                    }
+
+                    redLabel.setVisible(false);
+
                     Ingredient ingredient =  ingTable.getSelectionModel().getSelectedItem();
 
-//                    DBWrapper.createEmptyRecipe()
+                    if(ingredient == null)
+                    {
+                        return;
+                    }
+
+                    DBWrapper.addIngredientToRecipe(selectedRecipe.getId(), ingredient.getId());
+
+                    loadRecipeIngredients(selectedRecipe.getId());
                 }
             }
         });
@@ -167,6 +180,91 @@ public class RecipesController implements Initializable
 
     public void removeIngredient(MouseEvent mouseEvent)
     {
+        recipeIngTable.setOnMousePressed(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+
+                if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2)
+                {
+                    RecipeIngredient selectedIng = recipeIngTable.getSelectionModel().getSelectedItem();
+
+                    if(selectedIng == null)
+                    {
+                        redLabel.setText("Select a Ingredient First !!!");
+                        redLabel.setVisible(true);
+
+                        return;
+                    }
+
+                    redLabel.setVisible(false);
+
+                    DBWrapper.deleteRecipeIngredient(selectedIng.getId());
+
+                    loadRecipeIngredients(recipesTable.getSelectionModel().getSelectedItem().getId());
+                }
+            }
+        });
+    }
+
+    public void editRecipe(MouseEvent mouseEvent)
+    {
+
+        recipesTable.setOnMousePressed(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent mouseEvent)
+            {
+
+                if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 1)
+                {
+                    Recipe recipe =  recipesTable.getSelectionModel().getSelectedItem();
+
+                    loadRecipeIngredients(recipe.getId());
+                }
+            }
+        });
+
+
+    }
+
+    public void saveRecipeNameChanges(TableColumn.CellEditEvent<Recipe, String> recipeStringCellEditEvent)
+    {
+        Recipe recipe = recipesTable.getSelectionModel().getSelectedItem();
+
+        recipe.setName(recipeStringCellEditEvent.getNewValue());
+
+        DBWrapper.saveRecipe(recipe);
+    }
+
+    public void updateAmount(ActionEvent actionEvent)
+    {
+        RecipeIngredient recipeIngredient = recipeIngTable.getSelectionModel().getSelectedItem();
+
+        if(recipeIngredient == null)
+        {
+            redLabel.setText("Select Recipe Ingredient !!!");
+            redLabel.setVisible(true);
+            return;
+        }
+
+        if(newAmountField.getText().isEmpty())
+        {
+            redLabel.setText("Enter the new amount !!!");
+            redLabel.setVisible(true);
+            return;
+        }
+
+        redLabel.setVisible(false);
+
+        recipeIngredient.setAmount(Double.parseDouble(newAmountField.getText()));
+
+        DBWrapper.saveRecipeIngredient(recipeIngredient);
+
+        newAmountField.setText("");
+
+        loadRecipeIngredients(recipesTable.getSelectionModel().getSelectedItem().getId());
 
     }
 }

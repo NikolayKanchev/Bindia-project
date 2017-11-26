@@ -9,34 +9,34 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.RecipesController">
    <children>
-      <TableView fx:id="ingTable" layoutX="77.0" layoutY="180.0" onMouseClicked="#addIngredient" prefHeight="232.0" prefWidth="422.0">
+      <TableView fx:id="ingTable" layoutX="77.0" layoutY="180.0" onMouseClicked="#addIngredient" prefHeight="256.0" prefWidth="422.0">
          <columns>
             <TableColumn fx:id="idINGColumn" prefWidth="49.0" text="ID" />
             <TableColumn fx:id="nameINGColumn" prefWidth="371.0" text="NAME" />
          </columns>
       </TableView>
       <Label fx:id="subLabel" layoutX="403.0" layoutY="38.0" text="Manage Recipes" />
-      <Button fx:id="saveBtn" layoutX="380.0" layoutY="701.0" mnemonicParsing="false" onAction="#saveRecipe" prefHeight="31.0" prefWidth="118.0" text="Save" />
       <Label fx:id="redLabel" layoutX="407.0" layoutY="108.0" prefHeight="31.0" prefWidth="279.0" text="Choose an option !!!" visible="false" />
-      <TableView fx:id="recipesTable" layoutX="529.0" layoutY="180.0" prefHeight="521.0" prefWidth="422.0">
+      <TableView fx:id="recipesTable" layoutX="529.0" layoutY="180.0" onMouseClicked="#editRecipe" prefHeight="523.0" prefWidth="422.0">
          <columns>
             <TableColumn fx:id="idRecipesColumn" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="nameRecipesColumn" prefWidth="345.0" text="NAME" />
+            <TableColumn fx:id="nameRecipesColumn" onEditCommit="#saveRecipeNameChanges" prefWidth="345.0" text="NAME" />
          </columns>
       </TableView>
-      <TextField fx:id="dishNameField" layoutX="76.0" layoutY="701.0" prefHeight="31.0" prefWidth="305.0" promptText="Enter Dish Name" />
       <Label fx:id="subLabel" layoutX="77.0" layoutY="139.0" text="Ingredients:" />
-      <Label fx:id="subLabel" layoutX="667.0" layoutY="139.0" text="Recipes:" />
-      <Label fx:id="recipeLabel" layoutX="76.0" layoutY="412.0" prefHeight="47.0" prefWidth="256.0" text="Create recipe:" />
-      <TableView fx:id="recipeIngTable" layoutX="76.0" layoutY="452.0" onMouseClicked="#removeIngredient" prefHeight="252.0" prefWidth="422.0">
+      <Label fx:id="subLabel" layoutX="529.0" layoutY="139.0" text="Recipes:" />
+      <Label fx:id="subLabel" layoutX="77.0" layoutY="443.0" prefHeight="47.0" prefWidth="352.0" text="Recipe Ingredients:" />
+      <TableView fx:id="recipeIngTable" layoutX="77.0" layoutY="485.0" onMouseClicked="#removeIngredient" prefHeight="219.0" prefWidth="422.0">
          <columns>
             <TableColumn fx:id="idRecipeIngColumn" prefWidth="39.0" text="ID" />
             <TableColumn fx:id="ingRecipeIngColumn" prefWidth="308.0" text="INGREDIENT" />
             <TableColumn fx:id="amountRecipeIngColumn" prefWidth="74.0" text="AMOUNT" />
          </columns>
       </TableView>
-      <Button fx:id="deleteBtn" layoutX="881.0" layoutY="701.0" mnemonicParsing="false" onAction="#deleteRecipe" prefHeight="31.0" prefWidth="70.0" text="Delete" />
-      <Button fx:id="editBtn" layoutX="530.0" layoutY="701.0" mnemonicParsing="false" onAction="#editRecipe" prefHeight="31.0" prefWidth="70.0" text="Edit" />
-      <Button fx:id="createBtn" layoutX="380.0" layoutY="420.0" mnemonicParsing="false" onAction="#createRecipe" prefHeight="31.0" prefWidth="118.0" text="Create Recipe" />
+      <Button fx:id="deleteBtn" layoutX="529.0" layoutY="704.0" mnemonicParsing="false" onAction="#deleteRecipe" prefHeight="31.0" prefWidth="70.0" text="Delete" />
+      <Button fx:id="createBtn" layoutX="840.0" layoutY="704.0" mnemonicParsing="false" onAction="#createRecipe" prefHeight="31.0" prefWidth="111.0" text="New Recipe" />
+      <TextField fx:id="recipeNameField" layoutX="642.0" layoutY="704.0" prefHeight="31.0" prefWidth="196.0" promptText="Enter Recipe Name" />
+      <Button fx:id="updateAmountBtn" layoutX="363.0" layoutY="704.0" mnemonicParsing="false" onAction="#updateAmount" prefHeight="31.0" prefWidth="136.0" text="Update Amount" />
+      <TextField fx:id="newAmountField" layoutX="224.0" layoutY="704.0" prefHeight="31.0" prefWidth="142.0" promptText="Enter new Amount" />
    </children>
 </AnchorPane>

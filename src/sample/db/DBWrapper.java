@@ -347,4 +347,132 @@ public class DBWrapper
 
         return ingredient;
     }
+
+    public static void addIngredientToRecipe(int recipeId, int ingredientId)
+    {
+
+        String sql = "INSERT INTO `bindia`.`recipe_ingredients` (`" +
+                "id`, `ingredients_id`, `amount`, `recipes_id`)" +
+                "VALUES (NULL, ?, NULL, ?)";
+
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, ingredientId);
+            ps.setInt(2, recipeId);
+            ps.execute();
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteRecipeIngredient(int recipeIngId)
+    {
+        String sql = "DELETE FROM `recipe_ingredients` WHERE id = ?";
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, recipeIngId);
+
+            statement.executeUpdate();
+
+            statement.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveRecipe(Recipe recipe)
+    {
+        String sql = "UPDATE `bindia`.`recipes` SET " +
+                "`name` = ? " +
+                "WHERE `id` = ?";
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, recipe.getName());
+            ps.setInt(2, recipe.getId());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveRecipeIngredient(RecipeIngredient recipeIngredient)
+    {
+        String sql = "UPDATE `bindia`.`recipe_ingredients` SET " +
+                "`ingredients_id` = ?, " +
+                "`amount` = ?, " +
+                "`recipes_id` = ? "+
+                "WHERE `id` = ?";
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, recipeIngredient.getIngredient().getId());
+            ps.setDouble(2, recipeIngredient.getAmount());
+            ps.setInt(3, recipeIngredient.getRecipeId());
+            ps.setInt(4, recipeIngredient.getId());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createRecipe(String recipeName)
+    {
+        String sql = "INSERT INTO `bindia`.`recipes` (`" +
+                "id`, `name`)" +
+                "VALUES (NULL, ?)";
+
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, recipeName);
+            ps.execute();
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteRecipe(int recipeId)
+    {
+        String sql = "DELETE FROM `recipes` WHERE id = ?";
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, recipeId);
+
+            statement.executeUpdate();
+
+            statement.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
