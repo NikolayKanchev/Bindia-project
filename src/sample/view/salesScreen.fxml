@@ -5,21 +5,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SalesController">
    <children>
       <ChoiceBox fx:id="shopCheckBox" layoutX="77.0" layoutY="108.0" prefHeight="30.0" prefWidth="218.0" />
-      <TableView fx:id="table" layoutX="77.0" layoutY="150.0" prefHeight="551.0" prefWidth="873.0">
+      <TableView fx:id="table" layoutX="77.0" layoutY="142.0" prefHeight="559.0" prefWidth="873.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="93.0" text="ID" />
-            <TableColumn fx:id="ingredientsCulumn" prefWidth="643.0" text="INGREDIENTS" />
-            <TableColumn fx:id="amountColumn" prefWidth="136.0" text="AMOUNT" />
+            <TableColumn fx:id="recipeColumn" prefWidth="445.0" text="RESIPE" />
+            <TableColumn fx:id="portionsCulumn" prefWidth="171.0" text="SOLD PORTIONS" />
+            <TableColumn fx:id="weekCulumn" prefWidth="163.0" text="WEEK NUMBER" />
          </columns>
       </TableView>
       <Label fx:id="subLabel" layoutX="297.0" layoutY="39.0" text="Enter Sales for the Week" />
-      <Button fx:id="submitBtn" layoutX="852.0" layoutY="710.0" mnemonicParsing="false" onAction="#saveSales" prefHeight="47.0" prefWidth="98.0" text="Submit" />
+      <Button fx:id="addBtn" layoutX="891.0" layoutY="701.0" mnemonicParsing="false" onAction="#saveSale" prefHeight="31.0" prefWidth="59.0" text="+" />
       <Label fx:id="redLabel" layoutX="446.0" layoutY="108.0" prefHeight="31.0" prefWidth="329.0" text="Choose a shop !!!" visible="false" />
       <Label layoutX="77.0" layoutY="86.0" text="Choose a shop:" />
+      <TextField layoutX="665.0" layoutY="701.0" prefHeight="31.0" prefWidth="225.0" promptText="Sold Portions" />
+      <ChoiceBox fx:id="recipesCheckBox" layoutX="381.0" layoutY="702.0" prefHeight="30.0" prefWidth="283.0" />
+      <ChoiceBox fx:id="weekCheckBox" layoutX="246.0" layoutY="702.0" prefHeight="30.0" prefWidth="135.0" />
    </children>
 </AnchorPane>

@@ -15,7 +15,6 @@ import sample.db.DBWrapper;
 import sample.model.Ingredient;
 import sample.model.Order;
 import sample.model.Shop;
-import sun.util.resources.LocaleData;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -122,9 +121,7 @@ public class OrdersController implements Initializable
         loadOrdersForSelectedShop();
 
         amountField.setText("");
-
     }
-
 
     public void deleteOrder(ActionEvent actionEvent)
     {
@@ -162,4 +159,5 @@ public class OrdersController implements Initializable
 
         DBWrapper.saveOrderChanges(order);
     }
+
 }
