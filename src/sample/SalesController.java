@@ -6,13 +6,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import sample.db.DBWrapper;
 import sample.model.Recipe;
+import sample.model.Sale;
 import sample.model.Shop;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
@@ -21,6 +23,18 @@ public class SalesController implements Initializable
 
     @FXML
     private ChoiceBox shopCheckBox, weekCheckBox, recipesCheckBox;
+
+    @FXML
+    private TextField soldPortionsField;
+
+    @FXML
+    private TableView<Sale> table;
+
+    @FXML
+    private TableColumn<Sale, Integer> idColumn, portionsColumn, weekColumn;
+
+    @FXML
+    private TableColumn<Sale, String> recipeColumn;
 
 
     @Override
@@ -64,6 +78,6 @@ public class SalesController implements Initializable
 
     public void saveSale(ActionEvent actionEvent)
     {
-
+        
     }
 }
