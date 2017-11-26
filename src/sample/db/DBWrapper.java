@@ -479,4 +479,96 @@ public class DBWrapper
             e.printStackTrace();
         }
     }
+
+    public static void saveSale(int shopId, int recipeId, int soldPortions, int weekNum)
+    {
+        String sql = "INSERT INTO `bindia`.`sales` (`" +
+                "id`, `shop_id`, `recipe_id`, `sold_portions`, `week_number`)" +
+                "VALUES (NULL, ?, ?, ?, ?)";
+
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, shopId);
+            ps.setInt(2, recipeId);
+            ps.setInt(3, soldPortions);
+            ps.setInt(4, weekNum);
+            ps.execute();
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Sale> getAllSalesByShopID(int id)
+    {
+        ArrayList<Sale> sales = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `bindia`.`sales` WHERE `shop_id` = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Sale sale = new Sale(
+                        rs.getInt("id"),
+                        rs.getInt("shop_id"),
+                        rs.getInt("sold_portions"),
+                        rs.getInt("week_number"));
+
+                Recipe recipe = DBWrapper.getRecipeById(rs.getInt("recipe_id"));
+                sale.setRecipeId(recipe.getId());
+                sale.setRecipeName(recipe.getName());
+
+                sales.add(sale);
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return sales;
+    }
+
+    private static Recipe getRecipeById(int recipe_id)
+    {
+        Recipe recipe = null;
+
+        try
+        {
+            String sql = "SELECT * FROM `bindia`.`recipes` WHERE id = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, recipe_id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                recipe = new Recipe(
+                        rs.getInt("id"),
+                        rs.getString("name"));
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return recipe;
+    }
 }

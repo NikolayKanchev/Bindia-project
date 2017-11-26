@@ -3,16 +3,18 @@ package sample.model;
 public class Sale
 {
     private int id;
+    private int shopId;
     private int recipeId;
     private String recipeName;
     private int portions;
     private int weekNumber;
 
-    public Sale(int id, int portions, int weekNumber)
+    public Sale(int id,int shopId, int portions, int weekNumber)
     {
         this.id = id;
         this.portions = portions;
         this.weekNumber = weekNumber;
+        this.shopId = shopId;
     }
 
     public int getId()
@@ -23,6 +25,16 @@ public class Sale
     public void setId(int id)
     {
         this.id = id;
+    }
+
+    public int getShopId()
+    {
+        return shopId;
+    }
+
+    public void setShopId(int shopId)
+    {
+        this.shopId = shopId;
     }
 
     public int getRecipeId()

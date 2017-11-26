@@ -1,15 +1,16 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import sample.db.DBWrapper;
+import sample.model.Order;
 import sample.model.Recipe;
 import sample.model.Sale;
 import sample.model.Shop;
@@ -36,6 +37,9 @@ public class SalesController implements Initializable
     @FXML
     private TableColumn<Sale, String> recipeColumn;
 
+    @FXML
+    private Label redLabel;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -43,6 +47,32 @@ public class SalesController implements Initializable
         loadShops();
         loadWeeksNumbers();
         loadRecipes();
+        loadSalesForSelectedShop();
+
+        shopCheckBox.valueProperty().addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue)
+            {
+                loadSalesForSelectedShop();
+            }
+        });
+    }
+
+    private void loadSalesForSelectedShop()
+    {
+        Shop selectedShop = (Shop) shopCheckBox.getSelectionModel().getSelectedItem();
+
+        ObservableList<Sale> sales = FXCollections.observableArrayList();
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        recipeColumn.setCellValueFactory(new PropertyValueFactory<>("recipeName"));
+        portionsColumn.setCellValueFactory(new PropertyValueFactory<>("portions"));
+        weekColumn.setCellValueFactory(new PropertyValueFactory<>("weekNumber"));
+
+        sales.setAll(DBWrapper.getAllSalesByShopID(selectedShop.getId()));
+
+        table.setItems(sales);
     }
 
     private void loadRecipes()
@@ -78,6 +108,22 @@ public class SalesController implements Initializable
 
     public void saveSale(ActionEvent actionEvent)
     {
-        
+        if (soldPortionsField.getText().isEmpty())
+        {
+            redLabel.setText("Enter number of sold portions !!!");
+
+            redLabel.setVisible(true);
+
+            return;
+        }
+
+        redLabel.setVisible(false);
+
+        Shop shop = (Shop)shopCheckBox.getSelectionModel().getSelectedItem();
+        Recipe recipe = (Recipe) recipesCheckBox.getSelectionModel().getSelectedItem();
+        int soldPortions = Integer.parseInt(soldPortionsField.getText());
+        int weekNum = (int)weekCheckBox.getSelectionModel().getSelectedItem();
+
+        DBWrapper.saveSale(shop.getId(), recipe.getId(), soldPortions, weekNum);
     }
 }
