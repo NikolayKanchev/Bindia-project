@@ -54,4 +54,10 @@ public class Ingredient
     {
         this.measure = measure;
     }
+
+    @Override
+    public String toString()
+    {
+        return this.getId() + "\t" + this.name;
+    }
 }

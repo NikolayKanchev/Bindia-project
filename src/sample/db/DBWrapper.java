@@ -2,10 +2,8 @@ package sample.db;
 
 import sample.model.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DBWrapper
@@ -128,14 +126,19 @@ public class DBWrapper
 
             while (rs.next())
             {
-                orders.add(
-                        new Order(
-                                rs.getInt("id"),
-                                rs.getString("ingredient"),
-                                rs.getDouble("amount"),
-                                rs.getInt("shop_id")
-                        )
-                );
+                Order newOrder = new Order(
+                        rs.getInt("id"),
+                        rs.getDouble("amount"),
+                        rs.getInt("shop_id"),
+                        rs.getDate("date").toLocalDate());
+
+                Ingredient ingredient = DBWrapper.getIngredientById(rs.getInt("ingredient_id"));
+
+                newOrder.setIngredient(ingredient);
+
+                newOrder.setIngredientName(ingredient.getName());
+
+                orders.add(newOrder);
             }
             ps.close();
         }
@@ -147,19 +150,20 @@ public class DBWrapper
         return orders;
     }
 
-    public static void saveOrder(String ingredient, String amount, int selectedShopId)
+    public static void saveOrder(Ingredient ingredient, String amount, int selectedShopId)
     {
         String sql = "INSERT INTO `bindia`.`orders` (`" +
-                "id`, `ingredient`, `amount`, `shop_id`)" +
-                "VALUES (NULL, ?, ?, ?)";
+                "id`, `ingredient_id`, `amount`, `shop_id`, `date`)" +
+                "VALUES (NULL, ?, ?, ?, ?)";
 
         try
         {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, ingredient);
+            ps.setInt(1, ingredient.getId());
             ps.setDouble(2, Double.parseDouble(amount));
             ps.setInt(3, selectedShopId);
+            ps.setDate(4, Date.valueOf(LocalDate.now()));
 
             ps.execute();
 
@@ -201,7 +205,7 @@ public class DBWrapper
         {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, order.getIngredient());
+            ps.setString(1, order.getIngredientName());
             ps.setDouble(2, order.getAmount());
             ps.setInt(3, order.getId());
 

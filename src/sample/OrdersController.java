@@ -12,10 +12,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
 import sample.db.DBWrapper;
+import sample.model.Ingredient;
 import sample.model.Order;
 import sample.model.Shop;
+import sun.util.resources.LocaleData;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class OrdersController implements Initializable
@@ -33,10 +36,13 @@ public class OrdersController implements Initializable
     private TableColumn<Order, Double> amountColumn;
 
     @FXML
-    private ChoiceBox shopCheckBox;
+    private TableColumn<Order, LocalDate> dateColumn;
 
     @FXML
-    private TextField ingredientField, amountField;
+    private ChoiceBox shopCheckBox, ingredientChoiceBox;
+
+    @FXML
+    private TextField amountField;
 
     @FXML
     private Label redLabel;
@@ -72,6 +78,14 @@ public class OrdersController implements Initializable
                 loadOrdersForSelectedShop();
             }
         });
+
+        ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
+
+        ingredients.setAll(DBWrapper.getAllIngredients());
+
+        ingredientChoiceBox.setItems(ingredients);
+
+        ingredientChoiceBox.setValue(ingredients.get(0));
     }
 
     private void loadOrdersForSelectedShop()
@@ -79,8 +93,9 @@ public class OrdersController implements Initializable
         ObservableList<Order> orders = FXCollections.observableArrayList();
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("ingredient"));
+        ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("ingredientName"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         orders.setAll(DBWrapper.getAllOrdersByShopID(selectedShopId));
 
@@ -90,21 +105,22 @@ public class OrdersController implements Initializable
 
     public void createOrder(ActionEvent actionEvent)
     {
-        if(ingredientField.getText().isEmpty() || amountField.getText().isEmpty())
+        if(amountField.getText().isEmpty())
         {
-            redLabel.setText("Fill out all the fields !!!");
+            redLabel.setText("Enter amount !!!");
             redLabel.setVisible(true);
 
             return;
         }
 
-        DBWrapper.saveOrder(ingredientField.getText(),
+        Ingredient selectedIngredient = (Ingredient) ingredientChoiceBox.getSelectionModel().getSelectedItem();
+
+        DBWrapper.saveOrder(selectedIngredient,
                             amountField.getText(),
                             selectedShopId);
 
         loadOrdersForSelectedShop();
 
-        ingredientField.setText("");
         amountField.setText("");
 
     }
@@ -133,7 +149,7 @@ public class OrdersController implements Initializable
     {
         Order order = table.getSelectionModel().getSelectedItem();
 
-        order.setIngredient(orderStringCellEditEvent.getNewValue());
+        order.setIngredientName(orderStringCellEditEvent.getNewValue());
 
         DBWrapper.saveOrderChanges(order);
     }

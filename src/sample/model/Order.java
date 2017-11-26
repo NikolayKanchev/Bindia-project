@@ -1,18 +1,22 @@
 package sample.model;
 
+import java.time.LocalDate;
+
 public class Order
 {
     private int id;
-    private String ingredient;
+    private String ingredientName;
     private double amount;
     private int shopId;
+    private Ingredient ingredient;
+    private LocalDate date;
 
-    public Order(int id, String ingredient, double amount, int shopId)
+    public Order(int id, double amount, int shopId, LocalDate date)
     {
         this.id = id;
-        this.ingredient = ingredient;
         this.amount = amount;
         this.shopId = shopId;
+        this.date = date;
     }
 
     public int getId()
@@ -20,19 +24,29 @@ public class Order
         return id;
     }
 
+    public Ingredient getIngredient()
+    {
+        return ingredient;
+    }
+
+    public void setIngredient(Ingredient ingredient)
+    {
+        this.ingredient = ingredient;
+    }
+
     public void setId(int id)
     {
         this.id = id;
     }
 
-    public String getIngredient()
+    public String getIngredientName()
     {
-        return ingredient;
+        return ingredientName;
     }
 
-    public void setIngredient(String ingredient)
+    public void setIngredientName(String ingredientName)
     {
-        this.ingredient = ingredient;
+        this.ingredientName = ingredientName;
     }
 
     public double getAmount()
@@ -53,5 +67,15 @@ public class Order
     public void setShopId(int shopId)
     {
         this.shopId = shopId;
+    }
+
+    public LocalDate getDate()
+    {
+        return date;
+    }
+
+    public void setDate(LocalDate date)
+    {
+        this.date = date;
     }
 }
