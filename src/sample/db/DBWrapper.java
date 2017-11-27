@@ -593,9 +593,8 @@ public class DBWrapper
                         rs.getInt("order_id"),
                         rs.getDouble("missing"));
 
-                int ingId = DBWrapper.getIngIdFromOrder(exception.getOrderId());
+                int ingId = DBWrapper.getIngIdFromOrder(rs.getInt("order_id"));
 
-//                exception.setIngredientName(getIngredientById(ingId).getName());
                 exception.setIngredientName(getIngredientName(ingId));
 
                 exceptions.add(exception);
@@ -655,7 +654,7 @@ public class DBWrapper
 
             while (rs.next())
             {
-                ingId = rs.getInt("id");
+                ingId = rs.getInt("ingredient_id");
             }
             ps.close();
         }
@@ -682,6 +681,48 @@ public class DBWrapper
             ps.setInt(3, shopId);
 
             ps.execute();
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteOrderException(int id)
+    {
+        String sql = "DELETE FROM `orders_exceptions` WHERE id = ?";
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, id);
+
+            statement.executeUpdate();
+
+            statement.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveOrderExceptionChanges(OrderException exception)
+    {
+        String sql = "UPDATE `bindia`.`orders_exceptions` SET " +
+                "`missing` = ? " +
+                "WHERE `id` = ?";
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setDouble(1, exception.getMissing());
+            ps.setInt(2, exception.getId());
+
+            ps.executeUpdate();
 
             ps.close();
 

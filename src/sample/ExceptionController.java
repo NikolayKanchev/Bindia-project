@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.DoubleStringConverter;
 import sample.db.DBWrapper;
 import sample.model.Order;
 import sample.model.OrderException;
@@ -56,6 +58,11 @@ public class ExceptionController implements Initializable
                 loadExceptionsForSelectedShop();
             }
         });
+
+        table.setEditable(true);
+
+        missingColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+
     }
 
     private void loadExceptionsForSelectedShop()
@@ -115,16 +122,34 @@ public class ExceptionController implements Initializable
 
         ordersChoiceBox.setValue(null);
 
-//        loadExceptionsForSelectedShop();
+        loadExceptionsForSelectedShop();
     }
 
     public void deleteException(ActionEvent actionEvent)
     {
+        OrderException exception = table.getSelectionModel().getSelectedItem();
+
+        if(exception == null)
+        {
+            redLabel.setText("Select Item First !!!");
+            redLabel.setVisible(true);
+            return;
+        }
+
+        redLabel.setVisible(false);
+
+        DBWrapper.deleteOrderException(exception.getId());
+
+        loadExceptionsForSelectedShop();
 
     }
 
-    public void saveChanges(TableColumn.CellEditEvent cellEditEvent)
+    public void saveChanges(TableColumn.CellEditEvent<OrderException, Double> orderDoubleCellEditEvent)
     {
+        OrderException exception = table.getSelectionModel().getSelectedItem();
 
+        exception.setMissing(orderDoubleCellEditEvent.getNewValue());
+
+        DBWrapper.saveOrderExceptionChanges(exception);
     }
 }

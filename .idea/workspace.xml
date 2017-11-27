@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8615d53-b7e2-4f2e-af0f-4e82e976afa0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/BalanceController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/ExceptionController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/model/OrderException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/view/balanceScreen.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sample/view/exceptionsScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Bindia-project/sample/MainController.class" afterPath="$PROJECT_DIR$/out/production/Bindia-project/sample/MainController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Bindia-project/sample/db/DBWrapper.class" afterPath="$PROJECT_DIR$/out/production/Bindia-project/sample/db/DBWrapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Bindia-project/sample/view/mainScreen.fxml" afterPath="$PROJECT_DIR$/out/production/Bindia-project/sample/view/mainScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/MainController.java" afterPath="$PROJECT_DIR$/src/sample/MainController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/ExceptionController.java" afterPath="$PROJECT_DIR$/src/sample/ExceptionController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/db/DBWrapper.java" afterPath="$PROJECT_DIR$/src/sample/db/DBWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/model/Order.java" afterPath="$PROJECT_DIR$/src/sample/model/Order.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/view/mainScreen.fxml" afterPath="$PROJECT_DIR$/src/sample/view/mainScreen.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/view/exceptionsScreen.fxml" afterPath="$PROJECT_DIR$/src/sample/view/exceptionsScreen.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -98,12 +88,9 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="18" column="68" lean-forward="false" selection-start-line="18" selection-start-column="68" selection-end-line="18" selection-end-column="68" />
-              <folding>
-                <marker date="1511740420999" expanded="true" signature="838:1252" ph="..." />
-                <marker date="1511740420999" expanded="true" signature="857:1233" ph="..." />
-              </folding>
+            <state relative-caret-position="165">
+              <caret line="18" column="62" lean-forward="false" selection-start-line="18" selection-start-column="62" selection-end-line="18" selection-end-column="62" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -111,8 +98,8 @@
       <file leaf-file-name="ExceptionController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sample/ExceptionController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state relative-caret-position="342">
+              <caret line="152" column="36" lean-forward="true" selection-start-line="152" selection-start-column="36" selection-end-line="152" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -120,11 +107,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="OrdersController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sample/OrdersController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="321">
+              <caret line="153" column="99" lean-forward="false" selection-start-line="153" selection-start-column="34" selection-end-line="153" selection-end-column="99" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="DBWrapper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/db/DBWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="598" column="67" lean-forward="false" selection-start-line="598" selection-start-column="62" selection-end-line="598" selection-end-column="67" />
+            <state relative-caret-position="405">
+              <caret line="726" column="23" lean-forward="true" selection-start-line="726" selection-start-column="23" selection-end-line="726" selection-end-column="23" />
               <folding>
                 <element signature="method#getAllShops#0;class#DBWrapper#0" expanded="false" />
                 <element signature="method#deleteShopById#0;class#DBWrapper#0" expanded="false" />
@@ -133,7 +130,6 @@
                 <element signature="method#getAllOrdersByShopID#0;class#DBWrapper#0" expanded="false" />
                 <element signature="method#saveOrder#0;class#DBWrapper#0" expanded="false" />
                 <element signature="method#deleteOrderById#0;class#DBWrapper#0" expanded="false" />
-                <element signature="method#saveOrderChanges#0;class#DBWrapper#0" expanded="false" />
                 <element signature="method#getAllIngredients#0;class#DBWrapper#0" expanded="false" />
                 <element signature="method#getAllRecipes#0;class#DBWrapper#0" expanded="false" />
                 <element signature="method#getRecipeIngredients#0;class#DBWrapper#0" expanded="false" />
@@ -142,41 +138,42 @@
                 <element signature="method#saveRecipe#0;class#DBWrapper#0" expanded="false" />
                 <element signature="method#saveRecipeIngredient#0;class#DBWrapper#0" expanded="false" />
                 <element signature="method#createRecipe#0;class#DBWrapper#0" expanded="false" />
-                <element signature="method#deleteRecipe#0;class#DBWrapper#0" expanded="false" />
                 <element signature="method#getRecipeById#0;class#DBWrapper#0" expanded="false" />
-                <marker date="1511741902060" expanded="false" signature="401:431" ph="SELECT * FRO... shops" />
-                <marker date="1511741902060" expanded="false" signature="1148:1177" ph="DELETE FROM " />
-                <marker date="1511741902060" expanded="false" signature="1551:1640" ph="INSERT INTO `bindia`.`shops`... " />
-                <marker date="1511741902060" expanded="false" signature="1551:1641" ph="INSERT INTO `bindia`.`shops`... " />
-                <marker date="1511741902060" expanded="false" signature="1551:1682" ph="INSERT INTO `bindia`.`shops`... " />
-                <marker date="1511741902060" expanded="false" signature="1551:1690" ph="INSERT INTO `bindia`.`shops`... " />
-                <marker date="1511741902060" expanded="false" signature="1668:1682" ph="VALUES (NULL... " />
-                <marker date="1511741902060" expanded="false" signature="2115:2268" ph="UPDATE `bind... " />
-                <marker date="1511741902060" expanded="false" signature="2837:2888" ph="SELECT * FRO... orders" />
-                <marker date="1511741902060" expanded="false" signature="3855:4004" ph="INSERT INTO `bindia`.`orders`... " />
-                <marker date="1511741902060" expanded="false" signature="4518:4547" ph="DELETE FROM " />
-                <marker date="1511741902060" expanded="false" signature="4518:4548" ph="DELETE FROM " />
-                <marker date="1511741902060" expanded="false" signature="4518:4549" ph="DELETE FROM " />
-                <marker date="1511741902060" expanded="false" signature="4930:5069" ph="UPDATE `bind... " />
-                <marker date="1511741902060" expanded="false" signature="5609:5645" ph="SELECT * FRO... ingredients" />
-                <marker date="1511741902060" expanded="false" signature="6469:6501" ph="SELECT * FRO... recipes" />
-                <marker date="1511741902060" expanded="false" signature="7241:7307" ph="SELECT * FRO... recipe_ingredients" />
-                <marker date="1511741902060" expanded="false" signature="8315:8364" ph="SELECT * FRO... ingredients" />
-                <marker date="1511741902060" expanded="false" signature="9066:9223" ph="INSERT INTO `bindia`.`recipe_ingredients`... " />
-                <marker date="1511741902060" expanded="false" signature="9625:9670" ph="DELETE FROM " />
-                <marker date="1511741902060" expanded="false" signature="10056:10153" ph="UPDATE `bind... " />
-                <marker date="1511741902060" expanded="false" signature="10565:10756" ph="UPDATE `bind... " />
-                <marker date="1511741902060" expanded="false" signature="11292:11395" ph="INSERT INTO `bindia`.`recipes`... " />
-                <marker date="1511741902060" expanded="false" signature="11749:11781" ph="DELETE FROM " />
-                <marker date="1511741902060" expanded="false" signature="11749:11782" ph="DELETE FROM " />
-                <marker date="1511741902060" expanded="false" signature="11749:11783" ph="DELETE FROM " />
-                <marker date="1511741902060" expanded="true" signature="12206:12364" ph="INSERT INTO `bindia`.`recipe_ingredients`... " />
-                <marker date="1511741902060" expanded="false" signature="12912:12962" ph="SELECT * FRO... sales" />
-                <marker date="1511741902060" expanded="false" signature="13902:13947" ph="SELECT * FRO... recipes" />
-                <marker date="1511741902060" expanded="true" signature="14630:14692" ph="SELECT * FRO... orders_exceptions" />
-                <marker date="1511741902060" expanded="true" signature="15667:15721" ph="SELECT `name... ingredients" />
-                <marker date="1511741902060" expanded="true" signature="16253:16297" ph="SELECT * FRO... orders" />
-                <marker date="1511741902060" expanded="true" signature="16814:16959" ph="INSERT INTO `bindia`.`orders_exceptions`... " />
+                <marker date="1511743738977" expanded="false" signature="401:431" ph="SELECT * FRO... shops" />
+                <marker date="1511743738977" expanded="false" signature="1148:1177" ph="DELETE FROM " />
+                <marker date="1511743738977" expanded="false" signature="1551:1640" ph="INSERT INTO `bindia`.`shops`... " />
+                <marker date="1511743738977" expanded="false" signature="1551:1641" ph="INSERT INTO `bindia`.`shops`... " />
+                <marker date="1511743738977" expanded="false" signature="1551:1682" ph="INSERT INTO `bindia`.`shops`... " />
+                <marker date="1511743738977" expanded="false" signature="1551:1690" ph="INSERT INTO `bindia`.`shops`... " />
+                <marker date="1511743738977" expanded="false" signature="1668:1682" ph="VALUES (NULL... " />
+                <marker date="1511743738977" expanded="false" signature="2115:2268" ph="UPDATE `bind... " />
+                <marker date="1511743738977" expanded="false" signature="2837:2888" ph="SELECT * FRO... orders" />
+                <marker date="1511743738977" expanded="false" signature="3855:4004" ph="INSERT INTO `bindia`.`orders`... " />
+                <marker date="1511743738977" expanded="false" signature="4518:4547" ph="DELETE FROM " />
+                <marker date="1511743738977" expanded="false" signature="4518:4548" ph="DELETE FROM " />
+                <marker date="1511743738977" expanded="false" signature="4518:4549" ph="DELETE FROM " />
+                <marker date="1511743738977" expanded="false" signature="4930:5069" ph="UPDATE `bind... " />
+                <marker date="1511743738977" expanded="false" signature="5609:5645" ph="SELECT * FRO... ingredients" />
+                <marker date="1511743738977" expanded="false" signature="6469:6501" ph="SELECT * FRO... recipes" />
+                <marker date="1511743738977" expanded="false" signature="7241:7307" ph="SELECT * FRO... recipe_ingredients" />
+                <marker date="1511743738977" expanded="false" signature="8315:8364" ph="SELECT * FRO... ingredients" />
+                <marker date="1511743738977" expanded="false" signature="9066:9223" ph="INSERT INTO `bindia`.`recipe_ingredients`... " />
+                <marker date="1511743738977" expanded="false" signature="9625:9670" ph="DELETE FROM " />
+                <marker date="1511743738977" expanded="false" signature="10056:10153" ph="UPDATE `bind... " />
+                <marker date="1511743738977" expanded="false" signature="10565:10756" ph="UPDATE `bind... " />
+                <marker date="1511743738977" expanded="false" signature="11292:11395" ph="INSERT INTO `bindia`.`recipes`... " />
+                <marker date="1511743738977" expanded="false" signature="11749:11781" ph="DELETE FROM " />
+                <marker date="1511743738977" expanded="false" signature="11749:11782" ph="DELETE FROM " />
+                <marker date="1511743738977" expanded="false" signature="11749:11783" ph="DELETE FROM " />
+                <marker date="1511743738977" expanded="true" signature="12206:12364" ph="INSERT INTO `bindia`.`recipe_ingredients`... " />
+                <marker date="1511743738977" expanded="false" signature="12912:12962" ph="SELECT * FRO... sales" />
+                <marker date="1511743738977" expanded="false" signature="13902:13947" ph="SELECT * FRO... recipes" />
+                <marker date="1511743738977" expanded="true" signature="14630:14692" ph="SELECT * FRO... orders_exceptions" />
+                <marker date="1511743738977" expanded="true" signature="15583:15637" ph="SELECT `name... ingredients" />
+                <marker date="1511743738977" expanded="true" signature="16169:16213" ph="SELECT * FRO... orders" />
+                <marker date="1511743738977" expanded="true" signature="16741:16886" ph="INSERT INTO `bindia`.`orders_exceptions`... " />
+                <marker date="1511743738977" expanded="true" signature="17317:17361" ph="DELETE FROM " />
+                <marker date="1511743738977" expanded="true" signature="17764:17874" ph="UPDATE `bind... " />
               </folding>
             </state>
           </provider>
@@ -186,7 +183,7 @@
         <entry file="file://$PROJECT_DIR$/src/sample/model/Order.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1029">
-              <caret line="85" column="5" lean-forward="true" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+              <caret line="85" column="5" lean-forward="false" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
               <folding>
                 <element signature="e#1417#1418#0" expanded="true" />
                 <element signature="e#1466#1467#0" expanded="true" />
@@ -470,12 +467,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1511528489085</updated>
-      <workItem from="1511528492098" duration="59529000" />
+      <workItem from="1511528492098" duration="61155000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59529000" />
+    <option name="totallyTimeSpent" value="61155000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -729,20 +726,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/view/exceptionsScreen.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="18" column="68" lean-forward="false" selection-start-line="18" selection-start-column="68" selection-end-line="18" selection-end-column="68" />
-          <folding>
-            <marker date="1511740420999" expanded="true" signature="838:1252" ph="..." />
-            <marker date="1511740420999" expanded="true" signature="857:1233" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/RecipesController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
@@ -798,18 +781,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/OrdersController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="78" column="11" lean-forward="true" selection-start-line="65" selection-start-column="8" selection-end-line="78" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/model/Order.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1029">
-          <caret line="85" column="5" lean-forward="true" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+          <caret line="85" column="5" lean-forward="false" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
           <folding>
             <element signature="e#1417#1418#0" expanded="true" />
             <element signature="e#1466#1467#0" expanded="true" />
@@ -817,10 +792,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/OrdersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="153" column="99" lean-forward="false" selection-start-line="153" selection-start-column="34" selection-end-line="153" selection-end-column="99" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/view/exceptionsScreen.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="18" column="62" lean-forward="false" selection-start-line="18" selection-start-column="62" selection-end-line="18" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/ExceptionController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        <state relative-caret-position="342">
+          <caret line="152" column="36" lean-forward="true" selection-start-line="152" selection-start-column="36" selection-end-line="152" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -829,8 +823,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/db/DBWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="598" column="67" lean-forward="false" selection-start-line="598" selection-start-column="62" selection-end-line="598" selection-end-column="67" />
+        <state relative-caret-position="405">
+          <caret line="726" column="23" lean-forward="true" selection-start-line="726" selection-start-column="23" selection-end-line="726" selection-end-column="23" />
           <folding>
             <element signature="method#getAllShops#0;class#DBWrapper#0" expanded="false" />
             <element signature="method#deleteShopById#0;class#DBWrapper#0" expanded="false" />
@@ -839,7 +833,6 @@
             <element signature="method#getAllOrdersByShopID#0;class#DBWrapper#0" expanded="false" />
             <element signature="method#saveOrder#0;class#DBWrapper#0" expanded="false" />
             <element signature="method#deleteOrderById#0;class#DBWrapper#0" expanded="false" />
-            <element signature="method#saveOrderChanges#0;class#DBWrapper#0" expanded="false" />
             <element signature="method#getAllIngredients#0;class#DBWrapper#0" expanded="false" />
             <element signature="method#getAllRecipes#0;class#DBWrapper#0" expanded="false" />
             <element signature="method#getRecipeIngredients#0;class#DBWrapper#0" expanded="false" />
@@ -848,41 +841,42 @@
             <element signature="method#saveRecipe#0;class#DBWrapper#0" expanded="false" />
             <element signature="method#saveRecipeIngredient#0;class#DBWrapper#0" expanded="false" />
             <element signature="method#createRecipe#0;class#DBWrapper#0" expanded="false" />
-            <element signature="method#deleteRecipe#0;class#DBWrapper#0" expanded="false" />
             <element signature="method#getRecipeById#0;class#DBWrapper#0" expanded="false" />
-            <marker date="1511741902060" expanded="false" signature="401:431" ph="SELECT * FRO... shops" />
-            <marker date="1511741902060" expanded="false" signature="1148:1177" ph="DELETE FROM " />
-            <marker date="1511741902060" expanded="false" signature="1551:1640" ph="INSERT INTO `bindia`.`shops`... " />
-            <marker date="1511741902060" expanded="false" signature="1551:1641" ph="INSERT INTO `bindia`.`shops`... " />
-            <marker date="1511741902060" expanded="false" signature="1551:1682" ph="INSERT INTO `bindia`.`shops`... " />
-            <marker date="1511741902060" expanded="false" signature="1551:1690" ph="INSERT INTO `bindia`.`shops`... " />
-            <marker date="1511741902060" expanded="false" signature="1668:1682" ph="VALUES (NULL... " />
-            <marker date="1511741902060" expanded="false" signature="2115:2268" ph="UPDATE `bind... " />
-            <marker date="1511741902060" expanded="false" signature="2837:2888" ph="SELECT * FRO... orders" />
-            <marker date="1511741902060" expanded="false" signature="3855:4004" ph="INSERT INTO `bindia`.`orders`... " />
-            <marker date="1511741902060" expanded="false" signature="4518:4547" ph="DELETE FROM " />
-            <marker date="1511741902060" expanded="false" signature="4518:4548" ph="DELETE FROM " />
-            <marker date="1511741902060" expanded="false" signature="4518:4549" ph="DELETE FROM " />
-            <marker date="1511741902060" expanded="false" signature="4930:5069" ph="UPDATE `bind... " />
-            <marker date="1511741902060" expanded="false" signature="5609:5645" ph="SELECT * FRO... ingredients" />
-            <marker date="1511741902060" expanded="false" signature="6469:6501" ph="SELECT * FRO... recipes" />
-            <marker date="1511741902060" expanded="false" signature="7241:7307" ph="SELECT * FRO... recipe_ingredients" />
-            <marker date="1511741902060" expanded="false" signature="8315:8364" ph="SELECT * FRO... ingredients" />
-            <marker date="1511741902060" expanded="false" signature="9066:9223" ph="INSERT INTO `bindia`.`recipe_ingredients`... " />
-            <marker date="1511741902060" expanded="false" signature="9625:9670" ph="DELETE FROM " />
-            <marker date="1511741902060" expanded="false" signature="10056:10153" ph="UPDATE `bind... " />
-            <marker date="1511741902060" expanded="false" signature="10565:10756" ph="UPDATE `bind... " />
-            <marker date="1511741902060" expanded="false" signature="11292:11395" ph="INSERT INTO `bindia`.`recipes`... " />
-            <marker date="1511741902060" expanded="false" signature="11749:11781" ph="DELETE FROM " />
-            <marker date="1511741902060" expanded="false" signature="11749:11782" ph="DELETE FROM " />
-            <marker date="1511741902060" expanded="false" signature="11749:11783" ph="DELETE FROM " />
-            <marker date="1511741902060" expanded="true" signature="12206:12364" ph="INSERT INTO `bindia`.`recipe_ingredients`... " />
-            <marker date="1511741902060" expanded="false" signature="12912:12962" ph="SELECT * FRO... sales" />
-            <marker date="1511741902060" expanded="false" signature="13902:13947" ph="SELECT * FRO... recipes" />
-            <marker date="1511741902060" expanded="true" signature="14630:14692" ph="SELECT * FRO... orders_exceptions" />
-            <marker date="1511741902060" expanded="true" signature="15667:15721" ph="SELECT `name... ingredients" />
-            <marker date="1511741902060" expanded="true" signature="16253:16297" ph="SELECT * FRO... orders" />
-            <marker date="1511741902060" expanded="true" signature="16814:16959" ph="INSERT INTO `bindia`.`orders_exceptions`... " />
+            <marker date="1511743738977" expanded="false" signature="401:431" ph="SELECT * FRO... shops" />
+            <marker date="1511743738977" expanded="false" signature="1148:1177" ph="DELETE FROM " />
+            <marker date="1511743738977" expanded="false" signature="1551:1640" ph="INSERT INTO `bindia`.`shops`... " />
+            <marker date="1511743738977" expanded="false" signature="1551:1641" ph="INSERT INTO `bindia`.`shops`... " />
+            <marker date="1511743738977" expanded="false" signature="1551:1682" ph="INSERT INTO `bindia`.`shops`... " />
+            <marker date="1511743738977" expanded="false" signature="1551:1690" ph="INSERT INTO `bindia`.`shops`... " />
+            <marker date="1511743738977" expanded="false" signature="1668:1682" ph="VALUES (NULL... " />
+            <marker date="1511743738977" expanded="false" signature="2115:2268" ph="UPDATE `bind... " />
+            <marker date="1511743738977" expanded="false" signature="2837:2888" ph="SELECT * FRO... orders" />
+            <marker date="1511743738977" expanded="false" signature="3855:4004" ph="INSERT INTO `bindia`.`orders`... " />
+            <marker date="1511743738977" expanded="false" signature="4518:4547" ph="DELETE FROM " />
+            <marker date="1511743738977" expanded="false" signature="4518:4548" ph="DELETE FROM " />
+            <marker date="1511743738977" expanded="false" signature="4518:4549" ph="DELETE FROM " />
+            <marker date="1511743738977" expanded="false" signature="4930:5069" ph="UPDATE `bind... " />
+            <marker date="1511743738977" expanded="false" signature="5609:5645" ph="SELECT * FRO... ingredients" />
+            <marker date="1511743738977" expanded="false" signature="6469:6501" ph="SELECT * FRO... recipes" />
+            <marker date="1511743738977" expanded="false" signature="7241:7307" ph="SELECT * FRO... recipe_ingredients" />
+            <marker date="1511743738977" expanded="false" signature="8315:8364" ph="SELECT * FRO... ingredients" />
+            <marker date="1511743738977" expanded="false" signature="9066:9223" ph="INSERT INTO `bindia`.`recipe_ingredients`... " />
+            <marker date="1511743738977" expanded="false" signature="9625:9670" ph="DELETE FROM " />
+            <marker date="1511743738977" expanded="false" signature="10056:10153" ph="UPDATE `bind... " />
+            <marker date="1511743738977" expanded="false" signature="10565:10756" ph="UPDATE `bind... " />
+            <marker date="1511743738977" expanded="false" signature="11292:11395" ph="INSERT INTO `bindia`.`recipes`... " />
+            <marker date="1511743738977" expanded="false" signature="11749:11781" ph="DELETE FROM " />
+            <marker date="1511743738977" expanded="false" signature="11749:11782" ph="DELETE FROM " />
+            <marker date="1511743738977" expanded="false" signature="11749:11783" ph="DELETE FROM " />
+            <marker date="1511743738977" expanded="true" signature="12206:12364" ph="INSERT INTO `bindia`.`recipe_ingredients`... " />
+            <marker date="1511743738977" expanded="false" signature="12912:12962" ph="SELECT * FRO... sales" />
+            <marker date="1511743738977" expanded="false" signature="13902:13947" ph="SELECT * FRO... recipes" />
+            <marker date="1511743738977" expanded="true" signature="14630:14692" ph="SELECT * FRO... orders_exceptions" />
+            <marker date="1511743738977" expanded="true" signature="15583:15637" ph="SELECT `name... ingredients" />
+            <marker date="1511743738977" expanded="true" signature="16169:16213" ph="SELECT * FRO... orders" />
+            <marker date="1511743738977" expanded="true" signature="16741:16886" ph="INSERT INTO `bindia`.`orders_exceptions`... " />
+            <marker date="1511743738977" expanded="true" signature="17317:17361" ph="DELETE FROM " />
+            <marker date="1511743738977" expanded="true" signature="17764:17874" ph="UPDATE `bind... " />
           </folding>
         </state>
       </provider>
