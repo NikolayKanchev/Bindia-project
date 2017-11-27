@@ -78,4 +78,10 @@ public class Order
     {
         this.date = date;
     }
+
+    @Override
+    public String toString()
+    {
+        return this.id + "\t" + this.date;
+    }
 }

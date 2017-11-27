@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ExceptionController">
+   <children>
+      <ChoiceBox fx:id="shopChoiceBox" layoutX="77.0" layoutY="120.0" prefHeight="30.0" prefWidth="218.0" />
+      <TableView fx:id="table" layoutX="77.0" layoutY="150.0" prefHeight="581.0" prefWidth="873.0">
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="93.0" text="ID" />
+            <TableColumn fx:id="orderIDColumn" prefWidth="151.0" text="ORDER ID" />
+            <TableColumn fx:id="ingredientColumn" prefWidth="503.0" text="INGREDIENT" />
+            <TableColumn fx:id="missingColumn" onEditCommit="#saveChanges" prefWidth="124.0" text="MISSING" />
+         </columns>
+      </TableView>
+      <Label fx:id="subLabel" layoutX="413.0" layoutY="39.0" text="Exeptions" />
+      <Button fx:id="addBtn" layoutX="905.0" layoutY="120.0" mnemonicParsing="false" onAction="#createException" prefHeight="30.0" prefWidth="44.0" text="+" />
+      <Label fx:id="redLabel" layoutX="424.0" layoutY="82.0" prefHeight="31.0" prefWidth="329.0" text="Choose a shop !!!" visible="false" />
+      <Label layoutX="77.0" layoutY="97.0" text="Choose a shop:" />
+      <TextField fx:id="missingField" layoutX="768.0" layoutY="120.0" prefHeight="31.0" prefWidth="137.0" promptText="Amount" />
+      <Button fx:id="deleteBtn" layoutX="881.0" layoutY="731.0" mnemonicParsing="false" onAction="#deleteException" prefHeight="31.0" prefWidth="69.0" text="Delete" />
+      <ChoiceBox fx:id="ordersChoiceBox" layoutX="593.0" layoutY="121.0" prefHeight="30.0" prefWidth="175.0" />
+      <Label layoutX="479.0" layoutY="126.0" text="Choose order:" />
+   </children>
+</AnchorPane>

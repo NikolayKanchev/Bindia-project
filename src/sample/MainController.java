@@ -48,6 +48,17 @@ public class MainController implements Initializable
         changeAnchor("../sample/view/statisticsScreen.fxml");
     }
 
+    public void seeBalance(ActionEvent actionEvent)
+    {
+        changeAnchor("../sample/view/balanceScreen.fxml");
+    }
+
+    public void manageExceptions(ActionEvent actionEvent)
+    {
+        changeAnchor("../sample/view/exceptionsScreen.fxml");
+
+    }
+
     private void changeAnchor(String path)
     {
         try{
@@ -73,4 +84,5 @@ public class MainController implements Initializable
     {
         System.exit(0);
     }
+
 }

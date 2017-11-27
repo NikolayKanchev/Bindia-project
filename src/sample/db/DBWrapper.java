@@ -198,14 +198,14 @@ public class DBWrapper
     public static void saveOrderChanges(Order order)
     {
         String sql = "UPDATE `bindia`.`orders` SET " +
-                "`ingredient` = ?, " +
+                "`ingredient_id` = ?, " +
                 "`amount` = ? "+
                 "WHERE `id` = ?";
         try
         {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, order.getIngredientName());
+            ps.setInt(1, order.getIngredient().getId());
             ps.setDouble(2, order.getAmount());
             ps.setInt(3, order.getId());
 
@@ -570,5 +570,124 @@ public class DBWrapper
         }
 
         return recipe;
+    }
+
+    public static ArrayList<OrderException> getAllExceptionsByShopID(int id)
+    {
+        ArrayList<OrderException> exceptions = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT * FROM `bindia`.`orders_exceptions` WHERE `shop_id` = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                OrderException exception = new OrderException(
+                        rs.getInt("id"),
+                        rs.getInt("order_id"),
+                        rs.getDouble("missing"));
+
+                int ingId = DBWrapper.getIngIdFromOrder(exception.getOrderId());
+
+//                exception.setIngredientName(getIngredientById(ingId).getName());
+                exception.setIngredientName(getIngredientName(ingId));
+
+                exceptions.add(exception);
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return exceptions;
+    }
+
+    private static String getIngredientName(int ingId)
+    {
+        String name = "";
+
+        try
+        {
+            String sql = "SELECT `name` FROM `bindia`.`ingredients` WHERE id = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, ingId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                name = rs.getString("name");
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return name;
+
+    }
+
+    private static int getIngIdFromOrder(int orderId)
+    {
+        int ingId = 0;
+
+        try
+        {
+            String sql = "SELECT * FROM `bindia`.`orders` WHERE id = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, orderId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                ingId = rs.getInt("id");
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return ingId;
+    }
+
+    public static void saveOrderException(int selectedOrderId, double missing, int shopId)
+    {
+        String sql = "INSERT INTO `bindia`.`orders_exceptions` (`" +
+                "id`, `order_id`, `missing`, `shop_id`)" +
+                "VALUES (NULL, ?, ?, ?)";
+
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, selectedOrderId);
+            ps.setDouble(2, missing);
+            ps.setInt(3, shopId);
+
+            ps.execute();
+
+            ps.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

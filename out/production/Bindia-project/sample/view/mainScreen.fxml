@@ -12,15 +12,17 @@
    <children>
       <AnchorPane fx:id="mainAnchor" prefHeight="905.0" prefWidth="1200.0" styleClass="root" stylesheets="@VeryPretty.css">
          <children>
-            <Button fx:id="ordersBtn" layoutX="28.0" layoutY="156.0" mnemonicParsing="false" onAction="#manageOrders" prefHeight="55.0" prefWidth="136.0" text="Manage Orders" />
-            <Button fx:id="salesBtn" layoutX="28.0" layoutY="236.0" mnemonicParsing="false" onAction="#manageSales" prefHeight="55.0" prefWidth="136.0" text="Manage Sales" />
-            <Button fx:id="recipesBtn" layoutX="28.0" layoutY="319.0" mnemonicParsing="false" onAction="#manageRecipes" prefHeight="55.0" prefWidth="136.0" text="Manage Recipes" />
-            <Button fx:id="shopsBtn" layoutX="28.0" layoutY="401.0" mnemonicParsing="false" onAction="#manageShops" prefHeight="55.0" prefWidth="136.0" text="Manage Shops" />
-            <Button fx:id="statisticsBtn" layoutX="28.0" layoutY="480.0" mnemonicParsing="false" onAction="#seeStatistics" prefHeight="55.0" prefWidth="136.0" text="See Statistics" />
+            <Button fx:id="ordersBtn" layoutX="28.0" layoutY="156.0" mnemonicParsing="false" onAction="#manageOrders" prefHeight="55.0" prefWidth="150.0" text="Manage Orders" />
+            <Button fx:id="salesBtn" layoutX="28.0" layoutY="236.0" mnemonicParsing="false" onAction="#manageSales" prefHeight="55.0" prefWidth="150.0" text="Manage Sales" />
+            <Button fx:id="recipesBtn" layoutX="28.0" layoutY="402.0" mnemonicParsing="false" onAction="#manageRecipes" prefHeight="55.0" prefWidth="150.0" text="Manage Recipes" />
+            <Button fx:id="shopsBtn" layoutX="28.0" layoutY="484.0" mnemonicParsing="false" onAction="#manageShops" prefHeight="55.0" prefWidth="150.0" text="Manage Shops" />
+            <Button fx:id="statisticsBtn" layoutX="28.0" layoutY="563.0" mnemonicParsing="false" onAction="#seeStatistics" prefHeight="55.0" prefWidth="150.0" text="See Statistics" />
             <Label fx:id="welcomeLabel" layoutX="204.0" layoutY="14.0" text="Bindia Management System" />
             <Label layoutX="32.0" layoutY="122.0" prefHeight="20.0" prefWidth="136.0" text="Choose an option:" />
             <AnchorPane fx:id="anchor" layoutX="186.0" layoutY="85.0" prefHeight="800.0" prefWidth="1000.0" />
             <ChoiceBox fx:id="exitOptions" layoutX="1094.0" layoutY="30.0" onMouseClicked="#exit" prefHeight="46.0" prefWidth="50.0" />
+            <Button fx:id="balanceBtn" layoutX="28.0" layoutY="642.0" mnemonicParsing="false" onAction="#seeBalance" prefHeight="55.0" prefWidth="150.0" text="See Balance" />
+            <Button fx:id="exceptionsBtn" layoutX="28.0" layoutY="322.0" mnemonicParsing="false" onAction="#manageExceptions" prefHeight="55.0" prefWidth="150.0" text="Orders Exceptions" />
          </children>
       </AnchorPane>
    </children>
