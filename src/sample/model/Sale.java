@@ -1,5 +1,7 @@
 package sample.model;
 
+import java.time.LocalDate;
+
 public class Sale
 {
     private int id;
@@ -7,13 +9,13 @@ public class Sale
     private int recipeId;
     private String recipeName;
     private int portions;
-    private int weekNumber;
+    private LocalDate date;
 
-    public Sale(int id,int shopId, int portions, int weekNumber)
+    public Sale(int id,int shopId, int portions, LocalDate date)
     {
         this.id = id;
         this.portions = portions;
-        this.weekNumber = weekNumber;
+        this.date = date;
         this.shopId = shopId;
     }
 
@@ -67,13 +69,13 @@ public class Sale
         this.portions = portions;
     }
 
-    public int getWeekNumber()
+    public LocalDate getDate()
     {
-        return weekNumber;
+        return date;
     }
 
-    public void setWeekNumber(int weekNumber)
+    public void setDate(LocalDate date)
     {
-        this.weekNumber = weekNumber;
+        this.date = date;
     }
 }

@@ -480,10 +480,10 @@ public class DBWrapper
         }
     }
 
-    public static void saveSale(int shopId, int recipeId, int soldPortions, int weekNum)
+    public static void saveSale(int shopId, int recipeId, int soldPortions)
     {
         String sql = "INSERT INTO `bindia`.`sales` (`" +
-                "id`, `shop_id`, `recipe_id`, `sold_portions`, `week_number`)" +
+                "id`, `shop_id`, `recipe_id`, `sold_portions`, `date`)" +
                 "VALUES (NULL, ?, ?, ?, ?)";
 
         try
@@ -493,7 +493,7 @@ public class DBWrapper
             ps.setInt(1, shopId);
             ps.setInt(2, recipeId);
             ps.setInt(3, soldPortions);
-            ps.setInt(4, weekNum);
+            ps.setDate(4, Date.valueOf(LocalDate.now()));
             ps.execute();
 
             ps.close();
@@ -524,7 +524,7 @@ public class DBWrapper
                         rs.getInt("id"),
                         rs.getInt("shop_id"),
                         rs.getInt("sold_portions"),
-                        rs.getInt("week_number"));
+                        rs.getDate("date").toLocalDate());
 
                 Recipe recipe = DBWrapper.getRecipeById(rs.getInt("recipe_id"));
                 sale.setRecipeId(recipe.getId());
