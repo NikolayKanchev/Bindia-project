@@ -731,4 +731,13 @@ public class DBWrapper
             e.printStackTrace();
         }
     }
+
+    public static ArrayList<BalanceLineItem> getBalanceItems(int shopId, LocalDate fromDate, LocalDate toDate)
+    {
+        ArrayList<BalanceLineItem> balanceLineItems = new ArrayList<>();
+
+
+
+        return balanceLineItems;
+    }
 }
