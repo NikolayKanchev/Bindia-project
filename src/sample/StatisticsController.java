@@ -101,11 +101,14 @@ public class StatisticsController implements Initializable
 
         XYChart.Series set1 = new XYChart.Series<>();
 
-        ArrayList<Sale> sales = DBWrapper.getSalesByShopIdAndDates(shop.getId(), startDatePicker.getValue(), endDatePicker.getValue());
+        ArrayList<Sale> sales = DBWrapper.getSalesByShopIdAndDates(startDatePicker.getValue(), endDatePicker.getValue());
 
         for (Sale sale : sales)
         {
-            set1.getData().add(new XYChart.Data( sale.getRecipeName(), sale.getPortions()));
+            if(shop.getId() == sale.getShopId())
+            {
+                set1.getData().add(new XYChart.Data(sale.getRecipeName(), sale.getPortions()));
+            }
         }
 
         chart.getData().addAll(set1);
