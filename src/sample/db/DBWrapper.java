@@ -5,6 +5,7 @@ import sample.model.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DBWrapper
 {
@@ -736,8 +737,142 @@ public class DBWrapper
     {
         ArrayList<BalanceLineItem> balanceLineItems = new ArrayList<>();
 
+        String orderedTableViewSQL = "CREATE VIEW ordered AS\n" +
+                "SELECT DISTINCT\n" +
+                "  orders.shop_id,\n" +
+                "  orders.id AS order_id,\n" +
+                "  ingredients.id AS ing_id,\n" +
+                "  ingredients.name AS ing_name,\n" +
+                "  (SELECT (orders.amount*ingredients.quantity)) AS amount,\n" +
+                "  orders.date\n" +
+                "FROM orders,ingredients, sales, recipe_ingredients\n" +
+                "WHERE orders.ingredient_id = ingredients.id AND ingredients.id = recipe_ingredients.ingredients_id AND orders.date BETWEEN \""+ fromDate +"\" AND \""+ toDate +"\"";
 
+        executeSqlStatement(orderedTableViewSQL);
+
+        String soldTableViewSQL = "CREATE VIEW sold AS\n" +
+                "SELECT sales.date,recipe_ingredients.ingredients_id, sales.recipe_id, sales.shop_id,sales.sold_portions*recipe_ingredients.amount AS amount\n" +
+                "FROM sales, recipes, recipe_ingredients\n" +
+                "WHERE sales.recipe_id = recipes.id AND recipe_ingredients.recipes_id = recipes.id AND sales.date BETWEEN \""+ fromDate +"\" AND \""+ toDate +"\"";
+
+        executeSqlStatement(soldTableViewSQL);
+
+        String mainSQL = "SELECT DISTINCT\n" +
+                "  (SELECT SUM(sold.amount) FROM sold WHERE sold.shop_id = ? AND sold.ingredients_id = ingredients.id) AS sold_sum,\n" +
+                "  (SELECT SUM(ordered.amount) FROM ordered WHERE ordered.shop_id = ? AND ordered.ing_id = ingredients.id) AS ordered_sum,\n" +
+                "  (SELECT orders_exceptions.missing FROM orders_exceptions WHERE orders_exceptions.shop_id = ?\n" +
+                "    AND ingredients.id = (SELECT ordered.ing_id FROM ordered WHERE ordered.order_id = orders_exceptions.order_id)) AS exception,\n" +
+                "  (SELECT  coalesce(ordered_sum, 0)) AS ordered_sum_not_NULL,\n" +
+                "  (SELECT  coalesce(sold_sum, 0)) AS sold_sum_not_NULL,\n" +
+                "  (SELECT  coalesce(exception, 0)) AS exception_not_NULL,\n" +
+                "  (SELECT ordered_sum_not_NULL - sold_sum_not_NULL - exception_not_NULL) AS left_amount,\n" +
+                "  ingredients.id AS ing_id,\n" +
+                "  ingredients.name AS ing_name,\n" +
+                "  shops.id AS shops_id,\n" +
+                "  ingredients.measure\n" +
+                "FROM shops, ingredients, ordered, sold, sales, orders\n" +
+                "WHERE (shops.id = ? And ingredients.id = ordered.ing_id) OR (shops.id = ? AND ingredients.id = sold.ingredients_id)";
+
+
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(mainSQL);
+
+            ps.setInt(1, shopId);
+            ps.setInt(2, shopId);
+            ps.setInt(3, shopId);
+            ps.setInt(4, shopId);
+            ps.setInt(5, shopId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                BalanceLineItem balanceLineItem = new BalanceLineItem(
+                                                        rs.getInt("ing_id"),
+                                                        rs.getInt("shops_id"),
+                                                        rs.getString("ing_name"),
+                                                        rs.getDouble("ordered_sum_not_NULL"),
+                                                        rs.getDouble("sold_sum_not_NULL"),
+                                                        rs.getDouble("left_amount"),
+                                                        rs.getDouble("exception_not_NULL"));
+
+                balanceLineItems.add(balanceLineItem);
+            }
+
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        String dropOrderedViewSQL = "DROP VIEW ordered";
+
+        executeSqlStatement(dropOrderedViewSQL);
+
+        String dropSoldViewSQL = "DROP VIEW sold";
+
+        executeSqlStatement(dropSoldViewSQL);
 
         return balanceLineItems;
+    }
+
+    private static void executeSqlStatement(String statement)
+    {
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(statement);
+
+            ps.execute();
+
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Sale> getSalesByShopIdAndDates(int shopId, LocalDate startDate, LocalDate endDate)
+    {
+        ArrayList<Sale> sales = new ArrayList<>();
+
+        try
+        {
+            String sql = "SELECT DISTINCT\n" +
+                    "  shops.id AS shop_id,recipes.id,recipes.name AS recipe_name,\n" +
+                    "(SELECT SUM(sales.sold_portions) FROM sales WHERE recipes.id = sales.recipe_id and sales.shop_id = ?\n" +
+                    "                                                  AND sales.date BETWEEN ? AND ?) AS portions_sum\n" +
+                    "FROM sales, recipes, shops\n" +
+                    "WHERE sales.shop_id = ? AND sales.recipe_id = recipes.id";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, shopId);
+            ps.setDate(2, Date.valueOf(startDate));
+            ps.setDate(3, Date.valueOf(endDate));
+            ps.setInt(4, shopId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                Sale sale = new Sale(
+                        rs.getInt("shop_id"),
+                        rs.getInt("id"),
+                        rs.getString("recipe_name"),
+                        rs.getInt("portions_sum"));
+
+                sales.add(sale);
+            }
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return sales;
     }
 }

@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import sample.db.DBWrapper;
 import sample.model.BalanceLineItem;
 import sample.model.Shop;
@@ -35,6 +36,9 @@ public class BalanceController implements Initializable
     @FXML
     private DatePicker fromDatePicker, toDatePicker;
 
+    @FXML
+    private Label redLabel;
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -43,24 +47,42 @@ public class BalanceController implements Initializable
         toDatePicker.setValue(LocalDate.now());
         loadBalanceLineItemsForPeriod();
 
-//        shopChoiceBox.valueProperty().addListener(new ChangeListener()
-//        {
-//            @Override
-//            public void changed(ObservableValue observable, Object oldValue, Object newValue)
-//            {
-//                loadBalanceLineItemsForPeriod();
-//            }
-//        });
-
         shopChoiceBox.valueProperty().addListener((ov, oldValue, newValue) -> {
+            if(fromDatePicker.getValue() == null || toDatePicker.getValue() == null)
+            {
+                return;
+            }
+
             loadBalanceLineItemsForPeriod();
         });
 
         fromDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+            if(toDatePicker.getValue() == null)
+            {
+                redLabel.setText("Choose to which date !!!");
+
+                redLabel.setVisible(true);
+
+                return;
+            }
+
+            redLabel.setVisible(false);
+
             loadBalanceLineItemsForPeriod();
         });
 
         toDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+            if(fromDatePicker.getValue() == null)
+            {
+                redLabel.setText("Choose from which date !!!");
+
+                redLabel.setVisible(true);
+
+                return;
+            }
+
+            redLabel.setVisible(false);
+
             loadBalanceLineItemsForPeriod();
         });
 
@@ -72,7 +94,18 @@ public class BalanceController implements Initializable
         LocalDate fromDate = fromDatePicker.getValue();
         LocalDate toDate = toDatePicker.getValue();
 
-        DBWrapper.getBalanceItems(selectedShop.getId(), fromDate, toDate);
+        ObservableList<BalanceLineItem> balanceLineItems = FXCollections.observableArrayList();
+
+        balanceLineItems.setAll(DBWrapper.getBalanceItems(selectedShop.getId(), fromDate, toDate));
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("ingredientName"));
+        orderedColumn.setCellValueFactory(new PropertyValueFactory<>("orderedAmount"));
+        soldColumn.setCellValueFactory(new PropertyValueFactory<>("soldAmount"));
+        exceptionColumn.setCellValueFactory(new PropertyValueFactory<>("exceptionAmount"));
+        leftColumn.setCellValueFactory(new PropertyValueFactory<>("leftAmount"));
+
+        table.setItems(balanceLineItems);
     }
 
 

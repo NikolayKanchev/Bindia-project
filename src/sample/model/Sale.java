@@ -19,6 +19,14 @@ public class Sale
         this.shopId = shopId;
     }
 
+    public Sale(int shopId,int recipeId, String recipeName, int portions)
+    {
+        this.shopId = shopId;
+        this.recipeId = recipeId;
+        this.recipeName = recipeName;
+        this.portions = portions;
+    }
+
     public int getId()
     {
         return id;
