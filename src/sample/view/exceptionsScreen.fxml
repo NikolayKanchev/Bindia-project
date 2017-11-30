@@ -14,9 +14,9 @@
       <TableView fx:id="table" layoutX="77.0" layoutY="150.0" prefHeight="581.0" prefWidth="873.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="93.0" text="ID" />
-            <TableColumn fx:id="orderIDColumn" prefWidth="151.0" text="ORDER ID" />
             <TableColumn fx:id="ingredientColumn" prefWidth="503.0" text="INGREDIENT" />
-            <TableColumn fx:id="missingColumn" onEditCommit="#saveChanges" prefWidth="124.0" text="MISSING" />
+            <TableColumn fx:id="missingColumn" onEditCommit="#saveChanges" prefWidth="138.0" text="MISSING" />
+            <TableColumn fx:id="dateColumn" onEditCommit="#saveChanges" prefWidth="138.0" text="DATE" />
          </columns>
       </TableView>
       <Label fx:id="subLabel" layoutX="413.0" layoutY="39.0" text="Exeptions" />
@@ -25,7 +25,7 @@
       <Label layoutX="77.0" layoutY="97.0" text="Choose a shop:" />
       <TextField fx:id="missingField" layoutX="768.0" layoutY="120.0" prefHeight="31.0" prefWidth="137.0" promptText="Amount" />
       <Button fx:id="deleteBtn" layoutX="881.0" layoutY="731.0" mnemonicParsing="false" onAction="#deleteException" prefHeight="31.0" prefWidth="69.0" text="Delete" />
-      <ChoiceBox fx:id="ordersChoiceBox" layoutX="593.0" layoutY="121.0" prefHeight="30.0" prefWidth="175.0" />
-      <Label layoutX="479.0" layoutY="126.0" text="Choose order:" />
+      <ChoiceBox fx:id="ingredientsChoiceBox" layoutX="593.0" layoutY="121.0" prefHeight="30.0" prefWidth="175.0" />
+      <Label layoutX="444.0" layoutY="125.0" text="Choose Ingredient::" />
    </children>
 </AnchorPane>

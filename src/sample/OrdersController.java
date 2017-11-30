@@ -12,12 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
 import sample.db.DBWrapper;
-import sample.model.Ingredient;
-import sample.model.Order;
-import sample.model.Shop;
+import sample.model.*;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class OrdersController implements Initializable
@@ -118,6 +117,15 @@ public class OrdersController implements Initializable
                             amountField.getText(),
                             selectedShopId);
 
+
+        new Thread(() -> {
+
+            double amount = Double.parseDouble(amountField.getText())*selectedIngredient.getQuantity();
+
+            DBWrapper.saveBalanceLog(selectedShopId, selectedIngredient.getId(), amount, "ordered");
+
+        }){{start();}};
+
         loadOrdersForSelectedShop();
 
         amountField.setText("");
@@ -139,16 +147,13 @@ public class OrdersController implements Initializable
 
         DBWrapper.deleteOrderById(selectedOrder.getId());
 
+        new Thread(() -> {
+
+            DBWrapper.deleteBalanceLog(selectedOrder);
+
+        }){{start();}};
+
         loadOrdersForSelectedShop();
-    }
-
-    public void saveIngChanges(TableColumn.CellEditEvent<Order, String> orderStringCellEditEvent)
-    {
-        Order order = table.getSelectionModel().getSelectedItem();
-
-        order.setIngredientName(orderStringCellEditEvent.getNewValue());
-
-        DBWrapper.saveOrderChanges(order);
     }
 
     public void saveAmountChanges(TableColumn.CellEditEvent<Order, Double> orderDoubleCellEditEvent)
@@ -158,6 +163,12 @@ public class OrdersController implements Initializable
         order.setAmount(orderDoubleCellEditEvent.getNewValue());
 
         DBWrapper.saveOrderChanges(order);
+
+        new Thread(() -> {
+
+            DBWrapper.saveBalanceLogChanges(order);
+
+        }){{start();}};
     }
 
 }

@@ -577,7 +577,7 @@ public class DBWrapper
 
         try
         {
-            String sql = "SELECT * FROM `bindia`.`orders_exceptions` WHERE `shop_id` = ?";
+            String sql = "SELECT * FROM `bindia`.`exceptions` WHERE `shop_id` = ?";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -589,12 +589,12 @@ public class DBWrapper
             {
                 OrderException exception = new OrderException(
                         rs.getInt("id"),
-                        rs.getInt("order_id"),
-                        rs.getDouble("missing"));
+                        rs.getDouble("missing"),
+                        rs.getDate("date").toLocalDate(),
+                        rs.getInt("ingredient_id")
+                );
 
-                int ingId = DBWrapper.getIngIdFromOrder(rs.getInt("order_id"));
-
-                exception.setIngredientName(getIngredientName(ingId));
+                exception.setIngredientName(getIngredientName(exception.getId()));
 
                 exceptions.add(exception);
             }
@@ -637,47 +637,18 @@ public class DBWrapper
 
     }
 
-    private static int getIngIdFromOrder(int orderId)
+    public static void saveException(int ingId, double missing, int shopId)
     {
-        int ingId = 0;
-
-        try
-        {
-            String sql = "SELECT * FROM `bindia`.`orders` WHERE id = ?";
-
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, orderId);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next())
-            {
-                ingId = rs.getInt("ingredient_id");
-            }
-            ps.close();
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-
-        return ingId;
-    }
-
-    public static void saveOrderException(int selectedOrderId, double missing, int shopId)
-    {
-        String sql = "INSERT INTO `bindia`.`orders_exceptions` (`" +
-                "id`, `order_id`, `missing`, `shop_id`)" +
-                "VALUES (NULL, ?, ?, ?)";
+        String sql = "INSERT INTO `bindia`.`exceptions` (`id`, `date`, `missing`, `shop_id`, `ingredient_id`) VALUES (NULL, ?, ?, ?, ?)";
 
         try
         {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, selectedOrderId);
+            ps.setDate(1, Date.valueOf(LocalDate.now()));
             ps.setDouble(2, missing);
             ps.setInt(3, shopId);
+            ps.setInt(4, ingId);
 
             ps.execute();
 
@@ -691,7 +662,7 @@ public class DBWrapper
 
     public static void deleteOrderException(int id)
     {
-        String sql = "DELETE FROM `orders_exceptions` WHERE id = ?";
+        String sql = "DELETE FROM `exceptions` WHERE id = ?";
 
         try
         {
@@ -711,7 +682,7 @@ public class DBWrapper
 
     public static void saveOrderExceptionChanges(OrderException exception)
     {
-        String sql = "UPDATE `bindia`.`orders_exceptions` SET " +
+        String sql = "UPDATE `bindia`.`exceptions` SET " +
                 "`missing` = ? " +
                 "WHERE `id` = ?";
         try
@@ -731,107 +702,58 @@ public class DBWrapper
         }
     }
 
-//    public static ArrayList<BalanceLineItem> getBalanceItems(int shopId, LocalDate fromDate, LocalDate toDate)
-//    {
-//        ArrayList<BalanceLineItem> balanceLineItems = new ArrayList<>();
-//
-//        String orderedTableViewSQL = "CREATE VIEW ordered AS\n" +
-//                "SELECT DISTINCT\n" +
-//                "  orders.shop_id,\n" +
-//                "  orders.id AS order_id,\n" +
-//                "  ingredients.id AS ing_id,\n" +
-//                "  ingredients.name AS ing_name,\n" +
-//                "  (SELECT (orders.amount*ingredients.quantity)) AS amount,\n" +
-//                "  orders.date\n" +
-//                "FROM orders,ingredients, sales, recipe_ingredients\n" +
-//                "WHERE orders.ingredient_id = ingredients.id AND ingredients.id = recipe_ingredients.ingredients_id AND orders.date BETWEEN \""+ fromDate +"\" AND \""+ toDate +"\"";
-//
-//        executeSqlStatement(orderedTableViewSQL);
-//
-//        String soldTableViewSQL = "CREATE VIEW sold AS\n" +
-//                "SELECT sales.date,recipe_ingredients.ingredients_id, sales.recipe_id, sales.shop_id,sales.sold_portions*recipe_ingredients.amount AS amount\n" +
-//                "FROM sales, recipes, recipe_ingredients\n" +
-//                "WHERE sales.recipe_id = recipes.id AND recipe_ingredients.recipes_id = recipes.id AND sales.date BETWEEN \""+ fromDate +"\" AND \""+ toDate +"\"";
-//
-//        executeSqlStatement(soldTableViewSQL);
-//
-//        String mainSQL = "SELECT DISTINCT\n" +
-//                "  (SELECT SUM(sold.amount) FROM sold WHERE sold.shop_id = ? AND sold.ingredients_id = ingredients.id) AS sold_sum,\n" +
-//                "  (SELECT SUM(ordered.amount) FROM ordered WHERE ordered.shop_id = ? AND ordered.ing_id = ingredients.id) AS ordered_sum,\n" +
-//                "  (SELECT orders_exceptions.missing FROM orders_exceptions WHERE orders_exceptions.shop_id = ?\n" +
-//                "    AND ingredients.id = (SELECT ordered.ing_id FROM ordered WHERE ordered.order_id = orders_exceptions.order_id)) AS exception,\n" +
-//                "  (SELECT  coalesce(ordered_sum, 0)) AS ordered_sum_not_NULL,\n" +
-//                "  (SELECT  coalesce(sold_sum, 0)) AS sold_sum_not_NULL,\n" +
-//                "  (SELECT  coalesce(exception, 0)) AS exception_not_NULL,\n" +
-//                "  (SELECT ordered_sum_not_NULL - sold_sum_not_NULL - exception_not_NULL) AS left_amount,\n" +
-//                "  ingredients.id AS ing_id,\n" +
-//                "  ingredients.name AS ing_name,\n" +
-//                "  shops.id AS shops_id,\n" +
-//                "  ingredients.measure\n" +
-//                "FROM shops, ingredients, ordered, sold, sales, orders\n" +
-//                "WHERE (shops.id = ? And ingredients.id = ordered.ing_id) OR (shops.id = ? AND ingredients.id = sold.ingredients_id)";
-//
-//
-//        try
-//        {
-//            PreparedStatement ps = conn.prepareStatement(mainSQL);
-//
-//            ps.setInt(1, shopId);
-//            ps.setInt(2, shopId);
-//            ps.setInt(3, shopId);
-//            ps.setInt(4, shopId);
-//            ps.setInt(5, shopId);
-//
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next())
-//            {
-//                BalanceLineItem balanceLineItem = new BalanceLineItem(
-//                                                        rs.getInt("ing_id"),
-//                                                        rs.getInt("shops_id"),
-//                                                        rs.getString("ing_name"),
-//                                                        rs.getDouble("ordered_sum_not_NULL"),
-//                                                        rs.getDouble("sold_sum_not_NULL"),
-//                                                        rs.getDouble("left_amount"),
-//                                                        rs.getDouble("exception_not_NULL"));
-//
-//                balanceLineItems.add(balanceLineItem);
-//            }
-//
-//            ps.close();
-//        }
-//        catch (SQLException e)
-//        {
-//            e.printStackTrace();
-//        }
-//
-//        String dropOrderedViewSQL = "DROP VIEW ordered";
-//
-//        executeSqlStatement(dropOrderedViewSQL);
-//
-//        String dropSoldViewSQL = "DROP VIEW sold";
-//
-//        executeSqlStatement(dropSoldViewSQL);
-//
-//        return balanceLineItems;
-//    }
+    public static ArrayList<BalanceLineItem> getBalanceItems(int shopId, LocalDate fromDate, LocalDate toDate)
+    {
+        ArrayList<BalanceLineItem> balanceLineItems = new ArrayList<>();
 
+        String sql = "SELECT DISTINCT\n" +
+                "  ingredients.id,\n" +
+                "  balance_logs.shop_id,\n" +
+                "  ingredients.name,\n" +
+                "  (SELECT SUM(amount) FROM balance_logs WHERE operation = \"ordered\" AND ingredients.id = ingredient_id) AS ordered_sum,\n" +
+                "  (SELECT SUM(amount) FROM balance_logs WHERE operation = \"sold\" AND ingredients.id = ingredient_id) AS sold_sum,\n" +
+                "  (SELECT SUM(exceptions.missing) FROM exceptions WHERE ingredients.id = exceptions.ingredient_id) AS exceptions_sum,\n" +
+                "  (SELECT  coalesce(ordered_sum, 0)) AS ordered_amount,\n" +
+                "  (SELECT  coalesce(sold_sum, 0)) AS sold_amount,\n" +
+                "  (SELECT  coalesce(exceptions_sum, 0)) AS exception_amount,\n" +
+                "  (SELECT ordered_amount - sold_amount - exception_amount) AS left_amount\n" +
+                "FROM  ingredients, balance_logs\n" +
+                "WHERE ingredients.id = ingredient_id AND shop_id = ?\n" +
+                "                                              AND date BETWEEN ? AND ?";
 
-//    private static void executeSqlStatement(String statement)
-//    {
-//        try
-//        {
-//            PreparedStatement ps = conn.prepareStatement(statement);
-//
-//            ps.execute();
-//
-//            ps.close();
-//        }
-//        catch (SQLException e)
-//        {
-//            e.printStackTrace();
-//        }
-//    }
+        try
+        {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, shopId);
+            ps.setDate(2, Date.valueOf(fromDate));
+            ps.setDate(3, Date.valueOf(toDate));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+            {
+                BalanceLineItem balanceLineItem = new BalanceLineItem(
+                                                        rs.getInt("id"),
+                                                        rs.getInt("shop_id"),
+                                                        rs.getString("name"),
+                                                        rs.getDouble("ordered_amount"),
+                                                        rs.getDouble("sold_amount"),
+                                                        rs.getDouble("left_amount"),
+                                                        rs.getDouble("exception_amount"));
+
+                balanceLineItems.add(balanceLineItem);
+            }
+
+            ps.close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return balanceLineItems;
+    }
 
     public static ArrayList<Sale> getSalesByShopIdAndDates(LocalDate startDate, LocalDate endDate)
     {
@@ -873,37 +795,74 @@ public class DBWrapper
         return sales;
     }
 
-    public static int getSumSales(int recipeId, int shopId, LocalDate fromDate, LocalDate toDate)
+    public static void saveBalanceLog(int shopId, int ingredientId, double amount, String operation)
     {
-
-        int sum = 0;
+        String sql = "INSERT INTO `bindia`.`balance_logs` (`" +
+                "id`, `shop_id`, `ingredient_id`, `amount`,  `operation`, `date`)" +
+                "VALUES (NULL, ?, ?, ?, ?, ?)";
 
         try
         {
-            String sql = "SELECT DISTINCT\n" +
-                    "(SELECT SUM(sales.sold_portions) FROM sales WHERE shop_id = ? AND recipe_id = ? AND date BETWEEN ? AND ?) AS sum\n" +
-                    "FROM sales, shops, recipes";
-
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, shopId);
-            ps.setInt(2, recipeId);
-            ps.setDate(3,Date.valueOf(fromDate));
-            ps.setDate(4,Date.valueOf(toDate));
+            ps.setInt(2, ingredientId);
+            ps.setDouble(3, amount);
+            ps.setString(4, operation);
+            ps.setDate(5, Date.valueOf(LocalDate.now()));
 
-            ResultSet rs = ps.executeQuery();
+            ps.execute();
 
-            if (rs.next())
-            {
-                sum = rs.getInt("sum");
-            }
             ps.close();
-        }
-        catch (SQLException e)
+
+        } catch (SQLException e)
         {
             e.printStackTrace();
         }
+    }
 
-        return sum;
+    public static void deleteBalanceLog(Order selectedOrder)
+    {
+        String sql = "DELETE FROM `balance_logs` WHERE `shop_id` = ? AND `ingredient_id` = ? AND `date` = ?";
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, selectedOrder.getShopId());
+            statement.setInt(2, selectedOrder.getIngredient().getId());
+            statement.setDate(3, Date.valueOf(selectedOrder.getDate()));
+
+            statement.executeUpdate();
+
+            statement.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveBalanceLogChanges(Order order)
+    {
+        String sql = "UPDATE `bindia`.`balance_logs` SET `amount` = ? WHERE `shop_id` = ? AND `ingredient_id` = ? AND `date` = ?";
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setDouble(1, order.getAmount()*order.getIngredient().getQuantity());
+            statement.setInt(2, order.getShopId());
+            statement.setInt(3, order.getIngredient().getId());
+            statement.setDate(4, Date.valueOf(order.getDate()));
+
+            statement.executeUpdate();
+
+            statement.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

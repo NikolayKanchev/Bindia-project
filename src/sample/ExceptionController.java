@@ -12,11 +12,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
 import sample.db.DBWrapper;
-import sample.model.Order;
+import sample.model.Ingredient;
 import sample.model.OrderException;
 import sample.model.Shop;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ExceptionController implements Initializable
@@ -25,7 +26,7 @@ public class ExceptionController implements Initializable
     private TableView<OrderException> table;
 
     @FXML
-    private TableColumn<OrderException, Integer> idColumn, orderIDColumn;
+    private TableColumn<OrderException, Integer> idColumn;
 
     @FXML
     private TableColumn<OrderException, Double> missingColumn;
@@ -34,7 +35,10 @@ public class ExceptionController implements Initializable
     private TableColumn<OrderException, String> ingredientColumn;
 
     @FXML
-    private ChoiceBox shopChoiceBox, ordersChoiceBox;
+    private TableColumn<OrderException, LocalDate> dateColumn;
+
+    @FXML
+    private ChoiceBox shopChoiceBox, ingredientsChoiceBox;
 
     @FXML
     private Label redLabel;
@@ -46,7 +50,7 @@ public class ExceptionController implements Initializable
     public void initialize(URL location, ResourceBundle resources)
     {
         loadShops();
-        loadOrdersForSelectedShop();
+        loadIngredients();
         loadExceptionsForSelectedShop();
 
         shopChoiceBox.valueProperty().addListener(new ChangeListener()
@@ -54,7 +58,6 @@ public class ExceptionController implements Initializable
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue)
             {
-                loadOrdersForSelectedShop();
                 loadExceptionsForSelectedShop();
             }
         });
@@ -72,24 +75,22 @@ public class ExceptionController implements Initializable
         ObservableList<OrderException> exceptions = FXCollections.observableArrayList();
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        orderIDColumn.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("ingredientName"));
         missingColumn.setCellValueFactory(new PropertyValueFactory<>("missing"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         exceptions.setAll(DBWrapper.getAllExceptionsByShopID(shop.getId()));
 
         table.setItems(exceptions);
     }
 
-    private void loadOrdersForSelectedShop()
+    private void loadIngredients()
     {
-        ObservableList<Order> orders = FXCollections.observableArrayList();
+        ObservableList<Ingredient> ingredients = FXCollections.observableArrayList();
 
-        Shop shop = (Shop)shopChoiceBox.getSelectionModel().getSelectedItem();
+        ingredients.setAll(DBWrapper.getAllIngredients());
 
-        orders.setAll(DBWrapper.getAllOrdersByShopID(shop.getId()));
-
-        ordersChoiceBox.setItems(orders);
+        ingredientsChoiceBox.setItems(ingredients);
     }
 
     private void loadShops()
@@ -103,24 +104,24 @@ public class ExceptionController implements Initializable
 
     public void createException(ActionEvent actionEvent)
     {
-        Order selectedOrder = (Order)ordersChoiceBox.getSelectionModel().getSelectedItem();
+        Ingredient selectedIngredient = (Ingredient) ingredientsChoiceBox.getSelectionModel().getSelectedItem();
 
         Shop shop = (Shop)shopChoiceBox.getSelectionModel().getSelectedItem();
 
-        if(selectedOrder == null || missingField.getText().isEmpty())
+        if(selectedIngredient == null || missingField.getText().isEmpty())
         {
-            redLabel.setText("Choose order and enter missing value !!!");
+            redLabel.setText("Choose ingredient and enter missing value !!!");
             redLabel.setVisible(true);
             return;
         }
 
         redLabel.setVisible(false);
 
-        DBWrapper.saveOrderException(selectedOrder.getId(), Double.parseDouble(missingField.getText()), shop.getId());
+        DBWrapper.saveException(selectedIngredient.getId(), Double.parseDouble(missingField.getText()), shop.getId());
 
         missingField.setText("");
 
-        ordersChoiceBox.setValue(null);
+        ingredientsChoiceBox.setValue(null);
 
         loadExceptionsForSelectedShop();
     }

@@ -10,13 +10,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.db.DBWrapper;
-import sample.model.Order;
-import sample.model.Recipe;
-import sample.model.Sale;
-import sample.model.Shop;
+import sample.model.*;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
@@ -110,6 +108,17 @@ public class SalesController implements Initializable
         int soldPortions = Integer.parseInt(soldPortionsField.getText());
 
         DBWrapper.saveSale(shop.getId(), recipe.getId(), soldPortions);
+
+        new Thread(() -> {
+
+            ArrayList<RecipeIngredient> ingredients = DBWrapper.getRecipeIngredients(recipe.getId());
+
+            for (RecipeIngredient ingredient: ingredients)
+            {
+                DBWrapper.saveBalanceLog(shop.getId(), ingredient.getIngredient().getId(), soldPortions*ingredient.getAmount(), "sold");
+            }
+
+        }){{start();}};
 
         loadSalesForSelectedShop();
     }

@@ -1,18 +1,21 @@
 package sample.model;
 
+import java.time.LocalDate;
+
 public class OrderException
 {
     private int id;
-    private int orderId;
-    private double missing;
-
     private String ingredientName;
+    private int ingredientId;
+    private double missing;
+    private LocalDate date;
 
-    public OrderException(int id, int orderId, double missing)
+    public OrderException(int id, double missing, LocalDate date, int ingredientId)
     {
         this.id = id;
-        this.orderId = orderId;
         this.missing = missing;
+        this.date = date;
+        this.ingredientId = ingredientId;
     }
 
     public int getId()
@@ -25,14 +28,24 @@ public class OrderException
         this.id = id;
     }
 
-    public int getOrderId()
+    public String getIngredientName()
     {
-        return orderId;
+        return ingredientName;
     }
 
-    public void setOrderId(int orderId)
+    public void setIngredientName(String ingredientName)
     {
-        this.orderId = orderId;
+        this.ingredientName = ingredientName;
+    }
+
+    public int getIngredientId()
+    {
+        return ingredientId;
+    }
+
+    public void setIngredientId(int ingredientId)
+    {
+        this.ingredientId = ingredientId;
     }
 
     public double getMissing()
@@ -45,13 +58,13 @@ public class OrderException
         this.missing = missing;
     }
 
-    public String getIngredientName()
+    public LocalDate getDate()
     {
-        return ingredientName;
+        return date;
     }
 
-    public void setIngredientName(String ingredientName)
+    public void setDate(LocalDate date)
     {
-        this.ingredientName = ingredientName;
+        this.date = date;
     }
 }
