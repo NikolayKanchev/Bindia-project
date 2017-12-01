@@ -16,7 +16,6 @@ import sample.model.*;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class OrdersController implements Initializable
@@ -50,10 +49,10 @@ public class OrdersController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        ObservableList<Shop> shops = FXCollections.observableArrayList(DBWrapper.getAllShops());
-        shopCheckBox.setItems(shops);
-        shopCheckBox.setValue(shops.get(0));
-        selectedShopId = shops.get(0).getId();
+        ObservableList<Restaurant> restaurants = FXCollections.observableArrayList(DBWrapper.getAllRestaurants());
+        shopCheckBox.setItems(restaurants);
+        shopCheckBox.setValue(restaurants.get(0));
+        selectedShopId = restaurants.get(0).getId();
 
         loadOrdersForSelectedShop();
 
@@ -95,7 +94,7 @@ public class OrdersController implements Initializable
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        orders.setAll(DBWrapper.getAllOrdersByShopID(selectedShopId));
+        orders.setAll(DBWrapper.getAllOrdersByResID(selectedShopId));
 
         table.setItems(orders);
     }

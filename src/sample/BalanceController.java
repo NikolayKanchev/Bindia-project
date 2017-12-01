@@ -87,13 +87,13 @@ public class BalanceController implements Initializable
 
     private void loadBalanceLineItemsForPeriod()
     {
-        Shop selectedShop = (Shop) shopChoiceBox.getSelectionModel().getSelectedItem();
+        Restaurant selectedRestaurant = (Restaurant) shopChoiceBox.getSelectionModel().getSelectedItem();
         LocalDate fromDate = fromDatePicker.getValue();
         LocalDate toDate = toDatePicker.getValue();
 
         ObservableList<BalanceLineItem> balanceLineItems = FXCollections.observableArrayList();
 
-        balanceLineItems.setAll(DBWrapper.getBalanceItems(selectedShop.getId(), fromDate, toDate));
+        balanceLineItems.setAll(DBWrapper.getBalanceItems(selectedRestaurant.getId(), fromDate, toDate));
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("ingredientName"));
@@ -107,10 +107,10 @@ public class BalanceController implements Initializable
 
     private void loadShops()
     {
-        ObservableList<Shop> shops = FXCollections.observableArrayList(DBWrapper.getAllShops());
+        ObservableList<Restaurant> restaurants = FXCollections.observableArrayList(DBWrapper.getAllRestaurants());
 
-        shopChoiceBox.setItems(shops);
+        shopChoiceBox.setItems(restaurants);
 
-        shopChoiceBox.setValue(shops.get(0));
+        shopChoiceBox.setValue(restaurants.get(0));
     }
 }

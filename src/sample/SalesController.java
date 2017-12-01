@@ -15,7 +15,6 @@ import sample.model.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class SalesController implements Initializable
@@ -62,7 +61,7 @@ public class SalesController implements Initializable
 
     private void loadSalesForSelectedShop()
     {
-        Shop selectedShop = (Shop) shopCheckBox.getSelectionModel().getSelectedItem();
+        Restaurant selectedRestaurant = (Restaurant) shopCheckBox.getSelectionModel().getSelectedItem();
 
         ObservableList<Sale> sales = FXCollections.observableArrayList();
 
@@ -71,7 +70,7 @@ public class SalesController implements Initializable
         portionsColumn.setCellValueFactory(new PropertyValueFactory<>("portions"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        sales.setAll(DBWrapper.getAllSalesByShopID(selectedShop.getId()));
+        sales.setAll(DBWrapper.getAllSalesByResID(selectedRestaurant.getId()));
 
         table.setItems(sales);
     }
@@ -85,9 +84,9 @@ public class SalesController implements Initializable
 
     private void loadShops()
     {
-        ObservableList<Shop> shops = FXCollections.observableArrayList(DBWrapper.getAllShops());
-        shopCheckBox.setItems(shops);
-        shopCheckBox.setValue(shops.get(0));
+        ObservableList<Restaurant> restaurants = FXCollections.observableArrayList(DBWrapper.getAllRestaurants());
+        shopCheckBox.setItems(restaurants);
+        shopCheckBox.setValue(restaurants.get(0));
     }
 
     public void saveSale(ActionEvent actionEvent)
@@ -103,22 +102,24 @@ public class SalesController implements Initializable
 
         redLabel.setVisible(false);
 
-        Shop shop = (Shop)shopCheckBox.getSelectionModel().getSelectedItem();
+        Restaurant restaurant = (Restaurant)shopCheckBox.getSelectionModel().getSelectedItem();
         Recipe recipe = (Recipe) recipesCheckBox.getSelectionModel().getSelectedItem();
         int soldPortions = Integer.parseInt(soldPortionsField.getText());
 
-        DBWrapper.saveSale(shop.getId(), recipe.getId(), soldPortions);
+        DBWrapper.saveSale(restaurant.getId(), recipe.getId(), soldPortions);
 
         new Thread(() -> {
 
-            ArrayList<RecipeIngredient> ingredients = DBWrapper.getRecipeIngredients(recipe.getId());
+            ArrayList<RecipeLineItem> ingredients = DBWrapper.getRecipeIngredients(recipe.getId());
 
-            for (RecipeIngredient ingredient: ingredients)
+            for (RecipeLineItem ingredient: ingredients)
             {
-                DBWrapper.saveBalanceLog(shop.getId(), ingredient.getIngredient().getId(), soldPortions*ingredient.getAmount(), "sold");
+                DBWrapper.saveBalanceLog(restaurant.getId(), ingredient.getIngredient().getId(), soldPortions*ingredient.getAmount(), "sold");
             }
 
         }){{start();}};
+
+        soldPortionsField.setText("");
 
         loadSalesForSelectedShop();
     }

@@ -21,8 +21,8 @@
          </columns>
       </TableView>
       <Label fx:id="subLabel" layoutX="403.0" layoutY="38.0" text="Balance" />
-      <Label fx:id="redLabel" layoutX="605.0" layoutY="46.0" prefHeight="31.0" prefWidth="329.0" text="Choose a shop !!!" visible="false" />
-      <Label layoutX="77.0" layoutY="97.0" text="Choose a shop:" />
+      <Label fx:id="redLabel" layoutX="605.0" layoutY="46.0" prefHeight="31.0" prefWidth="329.0" text="Choose a restaurant !!!" visible="false" />
+      <Label layoutX="77.0" layoutY="97.0" text="Choose a restaurant:" />
       <Label layoutX="296.0" layoutY="97.0" text="From Date:" />
       <DatePicker fx:id="fromDatePicker" layoutX="286.0" layoutY="120.0" />
       <DatePicker fx:id="toDatePicker" layoutX="504.0" layoutY="120.0" />

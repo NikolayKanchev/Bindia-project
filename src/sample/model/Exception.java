@@ -2,7 +2,7 @@ package sample.model;
 
 import java.time.LocalDate;
 
-public class OrderException
+public class Exception
 {
     private int id;
     private String ingredientName;
@@ -10,7 +10,7 @@ public class OrderException
     private double missing;
     private LocalDate date;
 
-    public OrderException(int id, double missing, LocalDate date, int ingredientId)
+    public Exception(int id, double missing, LocalDate date, int ingredientId)
     {
         this.id = id;
         this.missing = missing;

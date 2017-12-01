@@ -9,22 +9,22 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import sample.db.DBWrapper;
-import sample.model.Shop;
+import sample.model.Restaurant;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ShopsController implements Initializable
+public class RestaurantController implements Initializable
 {
 
     @FXML
-    private TableView<Shop> table;
+    private TableView<Restaurant> table;
 
     @FXML
-    private TableColumn<Shop, Integer> idColumn;
+    private TableColumn<Restaurant, Integer> idColumn;
 
     @FXML
-    private TableColumn<Shop, String> nameColumn, managerColumn, addressColumn;
+    private TableColumn<Restaurant, String> nameColumn, managerColumn, addressColumn;
 
     @FXML
     private Label redLabel;
@@ -52,25 +52,25 @@ public class ShopsController implements Initializable
 
     private void loadShops()
     {
-        ObservableList<Shop> shops = FXCollections.observableArrayList();
+        ObservableList<Restaurant> restaurants = FXCollections.observableArrayList();
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         managerColumn.setCellValueFactory(new PropertyValueFactory<>("manager"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
 
-        shops.setAll(DBWrapper.getAllShops());
+        restaurants.setAll(DBWrapper.getAllRestaurants());
 
-        table.setItems(shops);
+        table.setItems(restaurants);
     }
 
     public void deleteShop(ActionEvent actionEvent)
     {
-        Shop selectedItem = table.getSelectionModel().getSelectedItem();
+        Restaurant selectedItem = table.getSelectionModel().getSelectedItem();
 
         if (selectedItem == null)
         {
-            redLabel.setText("Select a Shop !!!");
+            redLabel.setText("Select a Restaurant !!!");
 
             redLabel.setVisible(true);
 
@@ -79,7 +79,7 @@ public class ShopsController implements Initializable
 
         redLabel.setVisible(false);
 
-        DBWrapper.deleteShopById(selectedItem.getId());
+        DBWrapper.deleteRestaurantById(selectedItem.getId());
 
         loadShops();
     }
@@ -94,7 +94,7 @@ public class ShopsController implements Initializable
             return;
         }
 
-        DBWrapper.addNewShop(nameField.getText(), managerField.getText(), addressField.getText());
+        DBWrapper.addNewRestaurant(nameField.getText(), managerField.getText(), addressField.getText());
 
         loadShops();
 
@@ -103,35 +103,35 @@ public class ShopsController implements Initializable
         addressField.setText("");
     }
 
-    public void saveNameChanges(TableColumn.CellEditEvent<Shop, String> shopStringCellEditEvent)
+    public void saveNameChanges(TableColumn.CellEditEvent<Restaurant, String> shopStringCellEditEvent)
     {
-        Shop shop = table.getSelectionModel().getSelectedItem();
+        Restaurant restaurant = table.getSelectionModel().getSelectedItem();
 
-        shop.setName(shopStringCellEditEvent.getNewValue());
+        restaurant.setName(shopStringCellEditEvent.getNewValue());
 
-        DBWrapper.saveShopChanges(shop);
+        DBWrapper.saveRestaurantChanges(restaurant);
 
         loadShops();
     }
 
-    public void saveManagerChanges(TableColumn.CellEditEvent<Shop, String> shopStringCellEditEvent)
+    public void saveManagerChanges(TableColumn.CellEditEvent<Restaurant, String> shopStringCellEditEvent)
     {
-        Shop shop = table.getSelectionModel().getSelectedItem();
+        Restaurant restaurant = table.getSelectionModel().getSelectedItem();
 
-        shop.setManager(shopStringCellEditEvent.getNewValue());
+        restaurant.setManager(shopStringCellEditEvent.getNewValue());
 
-        DBWrapper.saveShopChanges(shop);
+        DBWrapper.saveRestaurantChanges(restaurant);
 
         loadShops();
     }
 
-    public void saveAddressChanges(TableColumn.CellEditEvent<Shop, String> shopStringCellEditEvent)
+    public void saveAddressChanges(TableColumn.CellEditEvent<Restaurant, String> shopStringCellEditEvent)
     {
-        Shop shop = table.getSelectionModel().getSelectedItem();
+        Restaurant restaurant = table.getSelectionModel().getSelectedItem();
 
-        shop.setAddress(shopStringCellEditEvent.getNewValue());
+        restaurant.setAddress(shopStringCellEditEvent.getNewValue());
 
-        DBWrapper.saveShopChanges(shop);
+        DBWrapper.saveRestaurantChanges(restaurant);
 
         loadShops();
     }

@@ -21,8 +21,8 @@
       </TableView>
       <Label fx:id="subLabel" layoutX="452.0" layoutY="39.0" text="Sales" />
       <Button fx:id="addBtn" layoutX="891.0" layoutY="701.0" mnemonicParsing="false" onAction="#saveSale" prefHeight="31.0" prefWidth="59.0" text="+" />
-      <Label fx:id="redLabel" layoutX="446.0" layoutY="108.0" prefHeight="31.0" prefWidth="329.0" text="Choose a shop !!!" visible="false" />
-      <Label layoutX="77.0" layoutY="86.0" text="Choose a shop:" />
+      <Label fx:id="redLabel" layoutX="446.0" layoutY="108.0" prefHeight="31.0" prefWidth="329.0" text="Choose a restaurant !!!" visible="false" />
+      <Label layoutX="77.0" layoutY="86.0" text="Choose a restaurant:" />
       <TextField fx:id="soldPortionsField" layoutX="665.0" layoutY="701.0" prefHeight="31.0" prefWidth="225.0" promptText="Sold Portions" />
       <ChoiceBox fx:id="recipesCheckBox" layoutX="381.0" layoutY="702.0" prefHeight="30.0" prefWidth="283.0" />
    </children>

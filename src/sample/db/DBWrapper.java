@@ -1,6 +1,7 @@
 package sample.db;
 
 import sample.model.*;
+import sample.model.Exception;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -11,13 +12,13 @@ public class DBWrapper
 
     private static Connection conn = DBCon.getConn();
 
-    public static ArrayList<Shop> getAllShops()
+    public static ArrayList<Restaurant> getAllRestaurants()
     {
-        ArrayList<Shop> shops = new ArrayList<>();
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
 
         try
         {
-            String sql = "SELECT * FROM `bindia`.`shops`";
+            String sql = "SELECT * FROM `bindia`.`restaurants`";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -25,8 +26,8 @@ public class DBWrapper
 
             while (rs.next())
             {
-                shops.add(
-                        new Shop(
+                restaurants.add(
+                        new Restaurant(
                                 rs.getInt("id"),
                                 rs.getString("name"),
                                 rs.getString("manager"),
@@ -41,12 +42,12 @@ public class DBWrapper
             e.printStackTrace();
         }
 
-        return shops;
+        return restaurants;
     }
 
-    public static void deleteShopById(int id)
+    public static void deleteRestaurantById(int id)
     {
-        String sql = "DELETE FROM shops WHERE id = " + id;
+        String sql = "DELETE FROM restaurants WHERE id = " + id;
 
         try
         {
@@ -62,9 +63,9 @@ public class DBWrapper
         }
     }
 
-    public static void addNewShop(String name, String manager, String address)
+    public static void addNewRestaurant(String name, String manager, String address)
     {
-        String sql = "INSERT INTO `bindia`.`shops` (`" +
+        String sql = "INSERT INTO `bindia`.`restaurants` (`" +
                      "id`, `name`, `manager`, `address`)" +
                      "VALUES (NULL, ?, ?, ?)";
 
@@ -86,20 +87,20 @@ public class DBWrapper
         }
     }
 
-    public static void saveShopChanges(Shop shop)
+    public static void saveRestaurantChanges(Restaurant restaurant)
     {
-        String sql = "UPDATE `bindia`.`shops` SET " +
+        String sql = "UPDATE `bindia`.`restaurants` SET " +
                 "`name` = ?, " +
                 "`manager` = ?, "+
-                "`address` = ? WHERE `shops`.`id` = ?";
+                "`address` = ? WHERE `restaurants`.`id` = ?";
         try
         {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, shop.getName());
-            ps.setString(2, shop.getManager());
-            ps.setString(3, shop.getAddress());
-            ps.setInt(4, shop.getId());
+            ps.setString(1, restaurant.getName());
+            ps.setString(2, restaurant.getManager());
+            ps.setString(3, restaurant.getAddress());
+            ps.setInt(4, restaurant.getId());
 
             ps.executeUpdate();
 
@@ -109,7 +110,7 @@ public class DBWrapper
         }
     }
 
-    public static ArrayList<Order> getAllOrdersByShopID(int id)
+    public static ArrayList<Order> getAllOrdersByResID(int id)
     {
         ArrayList<Order> orders = new ArrayList<>();
 
@@ -149,7 +150,7 @@ public class DBWrapper
         return orders;
     }
 
-    public static void saveOrder(Ingredient ingredient, String amount, int selectedShopId)
+    public static void saveOrder(Ingredient ingredient, String amount, int selectedRestaurantId)
     {
         String sql = "INSERT INTO `bindia`.`orders` (`" +
                 "id`, `ingredient_id`, `amount`, `shop_id`, `date`)" +
@@ -161,7 +162,7 @@ public class DBWrapper
 
             ps.setInt(1, ingredient.getId());
             ps.setDouble(2, Double.parseDouble(amount));
-            ps.setInt(3, selectedShopId);
+            ps.setInt(3, selectedRestaurantId);
             ps.setDate(4, Date.valueOf(LocalDate.now()));
 
             ps.execute();
@@ -280,9 +281,9 @@ public class DBWrapper
         return recipes;
     }
 
-    public static ArrayList<RecipeIngredient> getRecipeIngredients(int recipeId)
+    public static ArrayList<RecipeLineItem> getRecipeIngredients(int recipeId)
     {
-        ArrayList<RecipeIngredient> ingredients = new ArrayList<>();
+        ArrayList<RecipeLineItem> ingredients = new ArrayList<>();
 
         try
         {
@@ -296,18 +297,18 @@ public class DBWrapper
 
             while (rs.next())
             {
-                RecipeIngredient recipeIngredient = new RecipeIngredient(
+                RecipeLineItem recipeLineItem = new RecipeLineItem(
                         rs.getInt("id"),
                         rs.getInt("recipes_id"),
                         rs.getDouble("amount"));
 
                 Ingredient ingredient = getIngredientById(rs.getInt("ingredients_id"));
 
-                recipeIngredient.setIngredient(ingredient);
+                recipeLineItem.setIngredient(ingredient);
 
-                recipeIngredient.setIngName(ingredient.getName());
+                recipeLineItem.setIngName(ingredient.getName());
 
-                ingredients.add(recipeIngredient);
+                ingredients.add(recipeLineItem);
             }
             ps.close();
         }
@@ -414,7 +415,7 @@ public class DBWrapper
         }
     }
 
-    public static void saveRecipeIngredient(RecipeIngredient recipeIngredient)
+    public static void saveRecipeIngredient(RecipeLineItem recipeLineItem)
     {
         String sql = "UPDATE `bindia`.`recipe_ingredients` SET " +
                 "`ingredients_id` = ?, " +
@@ -425,10 +426,10 @@ public class DBWrapper
         {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, recipeIngredient.getIngredient().getId());
-            ps.setDouble(2, recipeIngredient.getAmount());
-            ps.setInt(3, recipeIngredient.getRecipeId());
-            ps.setInt(4, recipeIngredient.getId());
+            ps.setInt(1, recipeLineItem.getIngredient().getId());
+            ps.setDouble(2, recipeLineItem.getAmount());
+            ps.setInt(3, recipeLineItem.getRecipeId());
+            ps.setInt(4, recipeLineItem.getId());
 
             ps.executeUpdate();
 
@@ -479,7 +480,7 @@ public class DBWrapper
         }
     }
 
-    public static void saveSale(int shopId, int recipeId, int soldPortions)
+    public static void saveSale(int restaurantId, int recipeId, int soldPortions)
     {
         String sql = "INSERT INTO `bindia`.`sales` (`" +
                 "id`, `shop_id`, `recipe_id`, `sold_portions`, `date`)" +
@@ -489,7 +490,7 @@ public class DBWrapper
         {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, shopId);
+            ps.setInt(1, restaurantId);
             ps.setInt(2, recipeId);
             ps.setInt(3, soldPortions);
             ps.setDate(4, Date.valueOf(LocalDate.now()));
@@ -503,7 +504,7 @@ public class DBWrapper
         }
     }
 
-    public static ArrayList<Sale> getAllSalesByShopID(int id)
+    public static ArrayList<Sale> getAllSalesByResID(int id)
     {
         ArrayList<Sale> sales = new ArrayList<>();
 
@@ -571,9 +572,9 @@ public class DBWrapper
         return recipe;
     }
 
-    public static ArrayList<OrderException> getAllExceptionsByShopID(int id)
+    public static ArrayList<Exception> getAllExceptionsByRestaurantID(int id)
     {
-        ArrayList<OrderException> exceptions = new ArrayList<>();
+        ArrayList<Exception> exceptions = new ArrayList<>();
 
         try
         {
@@ -587,14 +588,14 @@ public class DBWrapper
 
             while (rs.next())
             {
-                OrderException exception = new OrderException(
+                Exception exception = new Exception(
                         rs.getInt("id"),
                         rs.getDouble("missing"),
                         rs.getDate("date").toLocalDate(),
                         rs.getInt("ingredient_id")
                 );
 
-                exception.setIngredientName(getIngredientName(exception.getId()));
+                exception.setIngredientName(getIngredientName(rs.getInt("ingredient_id")));
 
                 exceptions.add(exception);
             }
@@ -660,7 +661,7 @@ public class DBWrapper
         }
     }
 
-    public static void deleteOrderException(int id)
+    public static void deleteException(int id)
     {
         String sql = "DELETE FROM `exceptions` WHERE id = ?";
 
@@ -680,7 +681,7 @@ public class DBWrapper
         }
     }
 
-    public static void saveOrderExceptionChanges(OrderException exception)
+    public static void saveExceptionChanges(Exception exception)
     {
         String sql = "UPDATE `bindia`.`exceptions` SET " +
                 "`missing` = ? " +
@@ -702,7 +703,7 @@ public class DBWrapper
         }
     }
 
-    public static ArrayList<BalanceLineItem> getBalanceItems(int shopId, LocalDate fromDate, LocalDate toDate)
+    public static ArrayList<BalanceLineItem> getBalanceItems(int restaurantId, LocalDate fromDate, LocalDate toDate)
     {
         ArrayList<BalanceLineItem> balanceLineItems = new ArrayList<>();
 
@@ -725,7 +726,7 @@ public class DBWrapper
         {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, shopId);
+            ps.setInt(1, restaurantId);
             ps.setDate(2, Date.valueOf(fromDate));
             ps.setDate(3, Date.valueOf(toDate));
 
@@ -755,18 +756,18 @@ public class DBWrapper
         return balanceLineItems;
     }
 
-    public static ArrayList<Sale> getSalesByShopIdAndDates(LocalDate startDate, LocalDate endDate)
+    public static ArrayList<Sale> getSalesByResIdAndDates(LocalDate startDate, LocalDate endDate)
     {
         ArrayList<Sale> sales = new ArrayList<>();
 
         try
         {
             String sql = "SELECT DISTINCT\n" +
-                    "  shops.id AS shop_id,recipes.id,recipes.name AS recipe_name,\n" +
-                    "(SELECT SUM(sales.sold_portions) FROM sales WHERE recipes.id = sales.recipe_id and sales.shop_id = shops.id\n" +
+                    "  restaurants.id AS shop_id,recipes.id,recipes.name AS recipe_name,\n" +
+                    "(SELECT SUM(sales.sold_portions) FROM sales WHERE recipes.id = sales.recipe_id and sales.shop_id = restaurants.id\n" +
                     "                                                  AND sales.date BETWEEN ? AND ?) AS portions_sum\n" +
-                    "FROM sales, recipes, shops\n" +
-                    "WHERE sales.shop_id = shops.id AND sales.recipe_id = recipes.id";
+                    "FROM sales, recipes, restaurants\n" +
+                    "WHERE sales.shop_id = restaurants.id AND sales.recipe_id = recipes.id";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -795,7 +796,7 @@ public class DBWrapper
         return sales;
     }
 
-    public static void saveBalanceLog(int shopId, int ingredientId, double amount, String operation)
+    public static void saveBalanceLog(int restaurantId, int ingredientId, double amount, String operation)
     {
         String sql = "INSERT INTO `bindia`.`balance_logs` (`" +
                 "id`, `shop_id`, `ingredient_id`, `amount`,  `operation`, `date`)" +
@@ -805,7 +806,7 @@ public class DBWrapper
         {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, shopId);
+            ps.setInt(1, restaurantId);
             ps.setInt(2, ingredientId);
             ps.setDouble(3, amount);
             ps.setString(4, operation);

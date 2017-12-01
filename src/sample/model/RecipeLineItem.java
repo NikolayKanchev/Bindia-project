@@ -1,6 +1,6 @@
 package sample.model;
 
-public class RecipeIngredient
+public class RecipeLineItem
 {
     private int id;
     private int recipeId;
@@ -8,7 +8,7 @@ public class RecipeIngredient
     private String ingName;
     private double amount;
 
-    public RecipeIngredient(int id, int recipeId, double amount)
+    public RecipeLineItem(int id, int recipeId, double amount)
     {
         this.id = id;
         this.recipeId = recipeId;

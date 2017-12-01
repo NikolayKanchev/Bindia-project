@@ -11,7 +11,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StatisticsController">
    <children>
       <Label fx:id="subLabel" layoutX="425.0" layoutY="38.0" text="Statistic" />
-      <Label fx:id="redLabel" layoutX="648.0" layoutY="46.0" prefHeight="31.0" prefWidth="329.0" text="Choose a shop !!!" visible="false" />
+      <Label fx:id="redLabel" layoutX="648.0" layoutY="46.0" prefHeight="31.0" prefWidth="329.0" text="Choose a restaurant !!!" visible="false" />
       <BarChart fx:id="chart" layoutX="63.0" layoutY="152.0" prefHeight="636.0" prefWidth="875.0" title="Sales">
         <xAxis>
           <CategoryAxis label="Recipes" side="BOTTOM" fx:id="x" />

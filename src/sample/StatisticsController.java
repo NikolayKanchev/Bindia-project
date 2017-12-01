@@ -12,8 +12,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import sample.db.DBWrapper;
+import sample.model.Restaurant;
 import sample.model.Sale;
-import sample.model.Shop;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -42,7 +42,7 @@ public class StatisticsController implements Initializable
     private Label redLabel;
 
     @FXML
-    private ChoiceBox<Shop> shopChoiceBox;
+    private ChoiceBox<Restaurant> shopChoiceBox;
 
 
     @Override
@@ -97,15 +97,15 @@ public class StatisticsController implements Initializable
     {
         chart.getData().clear();
 
-        Shop shop = (Shop)shopChoiceBox.getSelectionModel().getSelectedItem();
+        Restaurant restaurant = (Restaurant)shopChoiceBox.getSelectionModel().getSelectedItem();
 
         XYChart.Series set1 = new XYChart.Series<>();
 
-        ArrayList<Sale> sales = DBWrapper.getSalesByShopIdAndDates(startDatePicker.getValue(), endDatePicker.getValue());
+        ArrayList<Sale> sales = DBWrapper.getSalesByResIdAndDates(startDatePicker.getValue(), endDatePicker.getValue());
 
         for (Sale sale : sales)
         {
-            if(shop.getId() == sale.getShopId())
+            if(restaurant.getId() == sale.getShopId())
             {
                 set1.getData().add(new XYChart.Data(sale.getRecipeName(), sale.getPortions()));
             }
@@ -116,11 +116,11 @@ public class StatisticsController implements Initializable
 
     private void loadShops()
     {
-        ObservableList<Shop> shops = FXCollections.observableArrayList(DBWrapper.getAllShops());
+        ObservableList<Restaurant> restaurants = FXCollections.observableArrayList(DBWrapper.getAllRestaurants());
 
-        shopChoiceBox.setItems(shops);
+        shopChoiceBox.setItems(restaurants);
 
-        shopChoiceBox.setValue(shops.get(0));
+        shopChoiceBox.setValue(restaurants.get(0));
     }
 
 }

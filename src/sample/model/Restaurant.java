@@ -1,13 +1,13 @@
 package sample.model;
 
-public class Shop
+public class Restaurant
 {
     private int id;
     private String name;
     private String manager;
     private String address;
 
-    public Shop(int id, String name, String manager, String address)
+    public Restaurant(int id, String name, String manager, String address)
     {
         this.id = id;
         this.name = name;

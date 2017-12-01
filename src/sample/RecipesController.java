@@ -14,7 +14,7 @@ import javafx.util.converter.DoubleStringConverter;
 import sample.db.DBWrapper;
 import sample.model.Ingredient;
 import sample.model.Recipe;
-import sample.model.RecipeIngredient;
+import sample.model.RecipeLineItem;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,7 +29,7 @@ public class RecipesController implements Initializable
     private TableView<Recipe> recipesTable;
 
     @FXML
-    private TableView<RecipeIngredient> recipeIngTable;
+    private TableView<RecipeLineItem> recipeIngTable;
 
     @FXML
     private TableColumn<Ingredient, Integer> idINGColumn;
@@ -38,13 +38,13 @@ public class RecipesController implements Initializable
     private TableColumn<Ingredient, String> nameINGColumn;
 
     @FXML
-    private TableColumn<RecipeIngredient, Integer> idRecipeIngColumn;
+    private TableColumn<RecipeLineItem, Integer> idRecipeIngColumn;
 
     @FXML
-    private TableColumn<RecipeIngredient, String> ingRecipeIngColumn;
+    private TableColumn<RecipeLineItem, String> ingRecipeIngColumn;
 
     @FXML
-    private TableColumn<RecipeIngredient, Double> amountRecipeIngColumn;
+    private TableColumn<RecipeLineItem, Double> amountRecipeIngColumn;
 
     @FXML
     private TableColumn<Recipe, Integer> idRecipesColumn;
@@ -118,7 +118,7 @@ public class RecipesController implements Initializable
 
     private void loadRecipeIngredients(int recipeId)
     {
-        ObservableList<RecipeIngredient> ingredients = FXCollections.observableArrayList();
+        ObservableList<RecipeLineItem> ingredients = FXCollections.observableArrayList();
 
         idRecipeIngColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         ingRecipeIngColumn.setCellValueFactory(new PropertyValueFactory<>("ingName"));
@@ -188,7 +188,7 @@ public class RecipesController implements Initializable
 
                 if (mouseEvent.isPrimaryButtonDown() && mouseEvent.getClickCount() == 2)
                 {
-                    RecipeIngredient selectedIng = recipeIngTable.getSelectionModel().getSelectedItem();
+                    RecipeLineItem selectedIng = recipeIngTable.getSelectionModel().getSelectedItem();
 
                     if(selectedIng == null)
                     {
@@ -240,9 +240,9 @@ public class RecipesController implements Initializable
 
     public void updateAmount(ActionEvent actionEvent)
     {
-        RecipeIngredient recipeIngredient = recipeIngTable.getSelectionModel().getSelectedItem();
+        RecipeLineItem recipeLineItem = recipeIngTable.getSelectionModel().getSelectedItem();
 
-        if(recipeIngredient == null)
+        if(recipeLineItem == null)
         {
             redLabel.setText("Select Recipe Ingredient !!!");
             redLabel.setVisible(true);
@@ -258,9 +258,9 @@ public class RecipesController implements Initializable
 
         redLabel.setVisible(false);
 
-        recipeIngredient.setAmount(Double.parseDouble(newAmountField.getText()));
+        recipeLineItem.setAmount(Double.parseDouble(newAmountField.getText()));
 
-        DBWrapper.saveRecipeIngredient(recipeIngredient);
+        DBWrapper.saveRecipeIngredient(recipeLineItem);
 
         newAmountField.setText("");
 
