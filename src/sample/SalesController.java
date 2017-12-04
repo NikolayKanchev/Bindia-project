@@ -9,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import sample.db.DBWrapper;
 import sample.model.*;
 
@@ -57,6 +60,10 @@ public class SalesController implements Initializable
                 loadSalesForSelectedShop();
             }
         });
+
+        table.setEditable(true);
+
+        portionsColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
     }
 
     private void loadSalesForSelectedShop()
@@ -122,5 +129,41 @@ public class SalesController implements Initializable
         soldPortionsField.setText("");
 
         loadSalesForSelectedShop();
+    }
+
+    public void deleteSale(ActionEvent actionEvent)
+    {
+         Sale sale = table.getSelectionModel().getSelectedItem();
+
+        if(sale == null)
+        {
+            redLabel.setText("Select a sale !!!");
+            redLabel.setVisible(true);
+            return;
+        }
+
+        redLabel.setVisible(false);
+
+        DBWrapper.deleteBalanceLogs(sale);
+        DBWrapper.deleteSale(sale.getId());
+
+        loadSalesForSelectedShop();
+    }
+
+    public void saveChanges(TableColumn.CellEditEvent<Sale, Integer> saleIntegerCellEditEvent)
+    {
+        Sale sale = table.getSelectionModel().getSelectedItem();
+
+        sale.setPortions(saleIntegerCellEditEvent.getNewValue());
+
+        DBWrapper.saveSaleChanges(sale);
+
+        ArrayList<RecipeLineItem> recipeLineItems = DBWrapper.getRecipeIngredients(sale.getRecipeId());
+
+        for (RecipeLineItem r: recipeLineItems)
+        {
+            DBWrapper.saveBalanceLogSalesChanges(sale, r.getAmount(), r.getIngredient().getId());
+        }
+
     }
 }

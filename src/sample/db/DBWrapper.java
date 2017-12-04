@@ -824,7 +824,7 @@ public class DBWrapper
 
     public static void deleteBalanceLog(Order selectedOrder)
     {
-        String sql = "DELETE FROM `balance_logs` WHERE `shop_id` = ? AND `ingredient_id` = ? AND `date` = ?";
+        String sql = "DELETE FROM `balance_logs` WHERE `shop_id` = ? AND `ingredient_id` = ? AND `date` = ?, `operation` = ?";
 
         try
         {
@@ -833,6 +833,7 @@ public class DBWrapper
             statement.setInt(1, selectedOrder.getShopId());
             statement.setInt(2, selectedOrder.getIngredient().getId());
             statement.setDate(3, Date.valueOf(selectedOrder.getDate()));
+            statement.setString(4, "ordered");
 
             statement.executeUpdate();
 
@@ -856,6 +857,95 @@ public class DBWrapper
             statement.setInt(2, order.getShopId());
             statement.setInt(3, order.getIngredient().getId());
             statement.setDate(4, Date.valueOf(order.getDate()));
+
+            statement.executeUpdate();
+
+            statement.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteSale(int saleId)
+    {
+        String sql = "DELETE FROM `sales` WHERE `id` = ?";
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, saleId);
+
+            statement.executeUpdate();
+
+            statement.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteBalanceLogs(Sale sale)
+    {
+        String sql = "DELETE FROM `balance_logs` WHERE `shop_id` = ? AND `date` = ? AND `operation` = ?";
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, sale.getShopId());
+            statement.setDate(2, Date.valueOf(sale.getDate()));
+            statement.setString(3, "sold");
+
+            statement.executeUpdate();
+
+            statement.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveSaleChanges(Sale sale)
+    {
+        String sql = "UPDATE `bindia`.`sales` SET `sold_portions` = ? WHERE `id` = ?";
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setInt(1, sale.getPortions());
+            statement.setInt(2, sale.getId());
+
+            statement.executeUpdate();
+
+            statement.close();
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveBalanceLogSalesChanges(Sale sale, double recipeLineItemAmount,int ingredientId)
+    {
+        String sql = "UPDATE `bindia`.`balance_logs` SET `amount` = ? WHERE `shop_id` = ? " +
+                     "AND `date` = ? AND `operation` = ? AND `ingredient_id` = ?";
+
+        try
+        {
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setDouble(1, sale.getPortions()*recipeLineItemAmount);
+            statement.setInt(2, sale.getShopId());
+            statement.setDate(3, Date.valueOf(sale.getDate()));
+            statement.setString(4, "sold");
+            statement.setInt(5, ingredientId);
+
 
             statement.executeUpdate();
 
