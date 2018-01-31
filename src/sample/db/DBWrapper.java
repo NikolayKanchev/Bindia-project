@@ -711,9 +711,12 @@ public class DBWrapper
                 "  ingredients.id,\n" +
                 "  balance_logs.shop_id,\n" +
                 "  ingredients.name,\n" +
-                "  (SELECT SUM(amount) FROM balance_logs WHERE operation = \"ordered\" AND ingredients.id = ingredient_id) AS ordered_sum,\n" +
-                "  (SELECT SUM(amount) FROM balance_logs WHERE operation = \"sold\" AND ingredients.id = ingredient_id) AS sold_sum,\n" +
-                "  (SELECT SUM(exceptions.missing) FROM exceptions WHERE ingredients.id = exceptions.ingredient_id) AS exceptions_sum,\n" +
+                "  (SELECT SUM(amount) FROM balance_logs WHERE operation = \"ordered\" " +
+                "AND ingredients.id = ingredient_id AND shop_id = ?) AS ordered_sum,\n" +
+                "  (SELECT SUM(amount) FROM balance_logs WHERE operation = \"sold\" " +
+                "AND ingredients.id = ingredient_id AND shop_id = ?) AS sold_sum,\n" +
+                "  (SELECT SUM(exceptions.missing) FROM exceptions WHERE" +
+                " ingredients.id = exceptions.ingredient_id AND shop_id = ?) AS exceptions_sum,\n" +
                 "  (SELECT  coalesce(ordered_sum, 0)) AS ordered_amount,\n" +
                 "  (SELECT  coalesce(sold_sum, 0)) AS sold_amount,\n" +
                 "  (SELECT  coalesce(exceptions_sum, 0)) AS exception_amount,\n" +
@@ -727,8 +730,11 @@ public class DBWrapper
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, restaurantId);
-            ps.setDate(2, Date.valueOf(fromDate));
-            ps.setDate(3, Date.valueOf(toDate));
+            ps.setInt(2, restaurantId);
+            ps.setInt(3, restaurantId);
+            ps.setInt(4, restaurantId);
+            ps.setDate(5, Date.valueOf(fromDate));
+            ps.setDate(6, Date.valueOf(toDate));
 
             ResultSet rs = ps.executeQuery();
 
