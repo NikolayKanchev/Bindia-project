@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBCon {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://85.82.251.160:3306/";
+    private static final String URL = "jdbc:mysql://85.82.241.232:3306/";
     private static final String DB_NAME = "bindia";
     private static final String USER = "bindia";
     private static final String PASS = "1234";
