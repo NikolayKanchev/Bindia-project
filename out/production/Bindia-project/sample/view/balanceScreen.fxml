@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@VeryPretty.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.BalanceController">
+   <children>
+      <ChoiceBox fx:id="shopChoiceBox" layoutX="77.0" layoutY="120.0" prefHeight="30.0" prefWidth="218.0" />
+      <TableView fx:id="table" layoutX="77.0" layoutY="150.0" prefHeight="599.0" prefWidth="873.0">
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="93.0" text="ID" />
+            <TableColumn fx:id="ingredientColumn" prefWidth="378.0" text="INGREDIENT" />
+            <TableColumn fx:id="orderedColumn" prefWidth="105.0" text="ORDERED" />
+            <TableColumn fx:id="soldColumn" prefWidth="98.0" text="SOLD" />
+            <TableColumn fx:id="exceptionColumn" prefWidth="102.0" text="EXCEPTION" />
+            <TableColumn fx:id="leftColumn" prefWidth="96.0" text="LEFT" />
+         </columns>
+      </TableView>
+      <Label fx:id="subLabel" layoutX="403.0" layoutY="38.0" text="Balance" />
+      <Label fx:id="redLabel" layoutX="605.0" layoutY="46.0" prefHeight="31.0" prefWidth="329.0" text="Choose a restaurant !!!" visible="false" />
+      <Label layoutX="77.0" layoutY="97.0" text="Choose a restaurant:" />
+      <Label layoutX="296.0" layoutY="97.0" text="From Date:" />
+      <DatePicker fx:id="fromDatePicker" layoutX="286.0" layoutY="120.0" />
+      <DatePicker fx:id="toDatePicker" layoutX="504.0" layoutY="120.0" />
+      <Label layoutX="507.0" layoutY="97.0" text="To Date:" />
+   </children>
+</AnchorPane>
